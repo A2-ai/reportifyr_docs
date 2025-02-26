@@ -7,6 +7,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://literate-adventure-1pnpg8r.pages.github.io/reportifyr_docs",
+	base: "/reportifyr_docs",
   markdown: {
     rehypePlugins: [
       rehypeSlug,

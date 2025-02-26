@@ -23,7 +23,7 @@ p <- ggplot(data, aes(x = Time, y = conc, group = Subject)) +
 p
 ```
 
-![](/images/theoph_pk_plot.png)
+![](/reportifyr_docs/images/theoph_pk_plot.png)
 
 ### Saving the Figure and Creating Metadata
 
@@ -113,7 +113,7 @@ metadata <- preview_metadata_files(file_dir = figures_path)
 knitr::kable(metadata)
 ```
 
-![](/images/preview-metadata-files.png)
+![](/reportifyr_docs/images/preview-metadata-files.png)
 
 From the data frame, we can see that there are additional parameters that can be
 saved as part of an artifact's metadata using `reportifyr`'s wrapper functions 
@@ -152,7 +152,7 @@ metadata_file <- preview_metadata(file_name = file.path(figures_path, plot_file_
 knitr::kable(metadata_file)
 ```
 
-![](/images/preview-metadata.png)
+![](/reportifyr_docs/images/preview-metadata.png)
 
 ## Performing an Analyses
 
@@ -202,7 +202,7 @@ pk_params <- data %>%
 knitr::kable(pk_params)
 ```
 
-![](/images/pk-params.png)
+![](/reportifyr_docs/images/pk-params.png)
 
 ```r
 lr <- pk_params %>% 
@@ -215,7 +215,7 @@ lr <- pk_params %>%
 lr
 ```
 
-![](/images/theoph-pk-exposure.png)
+![](/reportifyr_docs/images/theoph-pk-exposure.png)
 
 Let's save this plot with the `linear-regression-plot` `meta_type` and the relevant
 `AUC` `meta_abbrevs`. 
@@ -276,4 +276,4 @@ save_rds_with_metadata(
 
 At the end, we’ve generated two figures and two tables and saved them
 alongside their metadata using `reportifyr`, allowing us to easily
-incorporate them into our upcoming [Drafting Reports](/guides/drafting_reports)!
+incorporate them into our upcoming [Drafting Reports](/reportifyr_docs/guides/drafting_reports)!

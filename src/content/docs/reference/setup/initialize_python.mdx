@@ -1,0 +1,41 @@
+---
+title: Initialize Python
+description: initialize_python() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `initialize_python()` function in the `reportifyr` package sets up a `Python` virtual environment (`.venv`) with predefined or user-specified `Python` library versions using `uv`. The helper function `get_uv_path()` fetches the location of the `uv` executable, prioritizing common installation paths, while the helper function `get_py_version()` fetches the `Python` version from an existing `.venv/pyvenv.cfg` file.
+
+---
+
+## `initialize_python()`
+
+<EmbeddedHTML filename="/public/html_files/initialize_python.html"/>
+
+---
+
+### Returns
+
+If `uv` is found in one of the prioritized paths: 
+
+- `path/to/uv`: a character string of the path to `uv`
+
+If `uv` is not found:
+
+- `ERROR`
+
+---
+
+### Logging
+
+- **Error**: Stops execution if `uv` is not found. 
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details. 
+- **Python Virtual Environments**: Learn more about `.venv` [here](https://docs.python.org/3/library/venv.html).
+- **Introduction to uv**: Learn more about `uv` [here](https://docs.astral.sh/uv/).

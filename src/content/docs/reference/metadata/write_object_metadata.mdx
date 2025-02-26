@@ -1,0 +1,66 @@
+---
+title: Write Object Metadata
+description: write_object_metadata() reference.
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+The `write_object_metadata()` function in the `reportifyr` package generates metadata for a specified `object_file` and writes it to a `.json` file. The metadata includes system information, file details, and standardized footnotes (equations [`meta_equations`], notes [`meta_notes`], and abbreviations [`meta_abbrevs`]).
+
+---
+
+## `write_object_metadata()`
+
+<EmbeddedHTML filename="/public/html_files/write_object_metadata.html"/>
+
+---
+
+### Returns
+
+- **Metadata File**: A metadata `.json` file created alongside the `object_file`, containing the following information:
+
+<Steps>
+1. System Metadata (`system_meta`)
+   - `platform`: The operating system platform (e.g., x86_64-pc-linux-gnu).
+   - `software`:
+      - `version`: The version of `R` used to generate the metadata.
+      - `packages_used`: A list of `R` packages utilized during the session.
+2. Source Metadata (`source_meta`)
+   - `creation_author`: The name of the author who created the source file (from Git history).
+   - `latest_author`: The name of the most recent author who modified the source file (from Git history).
+   - `path`: The absolute path to the source file.
+   - `creation_time`: The timestamp when the source file was created (from Git history).
+   - `latest_time`: The timestamp of the most recent modification to the source file (from Git history).
+3. Object Metadata (`object_meta`)
+   - `author`: The name of the user generating the metadata (from Git configuration).
+   - `path`: The file path of the object.
+   - `creation_time`: The timestamp when the metadata was created.
+   - `file_type`: The file type/extension of the object (e.g., `.csv`, `.png`, etc.).
+   - `meta_type`: A string to specify the type of analysis.
+   - `hash`: A unique `hash` of the object file, generated using the `blake3` algorithm.
+   - `table1`: Boolean indicating whether table1 formatting is used for `add_tables()`.
+   - `footnotes`:
+      - `equations`: Supplementary equations related to the object.
+      - `notes`: Supplementary notes related to the object.
+      - `abbreviations`: Supplementary abbreviations related to the object.
+</Steps>
+
+---
+
+### Logging 
+
+- **Debug**: Logs the start and end of the function, metadata assembly, `JSON` conversion, and file-writing process.
+- **Info**: Logs successful validation of the `object_file`, detection of the source file path, and metadata details such as system and git information.
+- **Error**: Logs errors for missing `object_file`, issues with detecting the source file path, or any unexpected exceptions during the metadata writing process.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **JSON Documentation**: Learn more about `JSON` structure and syntax [here](https://www.json.org/json-en.html).
+- **Get Meta Abbreviations Reference**: Refer to the reference on `get_meta_abbrevs()` [here](/reference/metadata/get_meta_abbrevs).
+- **Get Meta Type Reference**: Refer to the reference on `get_meta_type()` [here](/reference/metadata/get_meta_type).
+- **Add Tables Reference**: Refer to the reference on `add_tables()` [here](/reference/document_interacting/add_tables).

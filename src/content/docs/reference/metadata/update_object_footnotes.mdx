@@ -1,0 +1,47 @@
+---
+title: Update Object Footnotes
+description: update_object_footnotes() reference.
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `update_object_footnotes()` function in the `reportifyr` package updates the footnote metadata (equations [`meta_equations`], notes [`meta_notes`], or abbreviations [`meta_abbrevs`]) for a specified object or its associated metadata file.
+
+---
+
+## `update_object_footnotes()`
+
+<EmbeddedHTML filename="/public/html_files/update_object_footnotes.html"/>
+
+---
+
+### Returns
+
+If the metadata file exists, the function updates the metadata file at the specified `file_path` and returns a prompt stating:
+
+```r
+Footnotes successfully updated in /cluster-data/user-homes/user/reportifyr_examples/OUTPUTS/figures/theoph-pk-exposure_png_metadata.json
+```
+
+If the metadata file does not exist, a prompt stating:
+
+```r
+The metadata associated with the specified file does not exist: /cluster-data/user-homes/user/reportifyr_examples/OUTPUTS/figures/theoph-pk-exposure_png_metadata.json
+```
+
+---
+
+### Logging 
+
+- **Debug**: Logs the start and end of the function and the successful loading of the metadata file.
+- **Info**: Logs when the metadata file is found and whether the metadata is being overwritten or appended.
+- **Error**: Logs errors for missing `file_path`.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **JSON Documentation**: Learn more about `JSON` structure and syntax [here](https://www.json.org/json-en.html).
+- **Get Meta Abbreviations Reference**: Refer to the reference on `get_meta_abbrevs()` [here](/guides/metadata/get_meta_abbrevs).

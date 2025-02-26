@@ -1,0 +1,35 @@
+---
+title: Get Meta Abbreviations
+description: get_meta_abbrevs() reference.
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `get_meta_abbrevs()` function in the `reportifyr` package retrieves standardized abbreviations (`meta_abbrevs`) from a specified `standard_footnotes.yaml` file.
+
+---
+
+## `get_meta_abbrevs()`
+
+<EmbeddedHTML filename="/public/html_files/get_meta_abbrevs.html"/>
+
+---
+
+### Returns
+
+A named list of abbreviations from the `standard_footnotes.yaml` file.
+
+---
+
+### Logging 
+
+- **Debug**: Logs the start and end of the function, the successful reading of `standard_footnotes.yaml`, and the successful extraction of `meta_abbrevs`.
+- **Error**: Logs errors for missing files, incorrect file types, or missing required fields within `standard_footnotes.yaml`.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details. 
+- **YAML Documentation**: Learn more about `YAML` syntax and structure [here](https://yaml.org/).

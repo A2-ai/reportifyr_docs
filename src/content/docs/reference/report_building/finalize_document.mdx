@@ -1,0 +1,46 @@
+---
+title: Finalize Document
+description: finalize_document() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `finalize_document()` function in the `reportifyr` package is used to finalize a Microsoft Word document by removing all bookmarks and `reportifyr` magic strings.
+
+---
+
+## `finalize_document()`
+
+<EmbeddedHTML filename="/public/html_files/finalize_document.html"/>
+
+---
+
+### Returns
+
+- **Finalized Document**: A finalized `.docx` file with bookmarks and magic strings removed.
+
+A finalized `docx_out` is only provided if the user answers `Y` to the following prompts:
+
+```r
+This will remove the bookmarks in the document. This severs the link between the document and reportifyr. Are you sure you want to continue? [Y/n]
+```
+
+```r
+This will remove magic strings from the document. This severs link between the document and reportifyr. Are you sure you want to continue? [Y/n]
+```
+
+---
+
+### Logging
+
+- **Debug**: Logs the start and end of the function, as well as the removal of the intermediate document.
+- **Info**: Logs provided paths for `docx_in`, `docx_out`, and the intermediate document.
+- **Error**: Logs errors for missing `docx_in`, if `docx_in` and `docx_out` are the same file, and issues with `docx_in` and/or `docx_out` file extensions.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **Make Doc Dirs Reference**: Refer to the reference on `make_doc_dirs()` [here](/reference/utilities/make_doc_dirs).

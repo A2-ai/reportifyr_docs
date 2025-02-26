@@ -1,0 +1,48 @@
+---
+title: Build Report
+description: build_report() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `build_report()` function in the `reportifyr` package is a wrapper around several `reportifyr` functions. It parses a Microsoft Word document (`.docx` file) for predefined magic strings, removes any existing `reportifyr` tables, figures and footnotes, and inserts up-to-date versions of the tables, figures, and footnotes from file.
+
+---
+
+## `build_report()`
+
+<EmbeddedHTML filename="/public/html_files/build_report.html"/>
+
+---
+
+### Returns
+
+- **Updated Document**: A new `.docx` file with up-to-date tables, figures, and footnotes inserted at the appropriate positions.
+
+Time taken by the function:
+
+```r
+0.715 sec elapsed
+0.115 sec elapsed
+0.275 sec elapsed
+```
+
+---
+
+### Logging
+
+- **Debug**: Logs the start and end of the function.
+- **Info**: Logs `docx_out` validation and migration of intermediate documents to the `intermediate_files` directory.
+- **Error**: Logs errors for missing `docx_in`, if `docx_in` and `docx_out` are the same file, issues with `docx_in` and/or `docx_out` file extensions, and any errors returned from `add_footnotes()`.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **Add Footnotes Reference**: Refer to the reference on `add_footnotes()` [here](/reference/document_interacting/add_footnotes).
+- **Add Plots Reference**: Refer to the reference on `add_plots()` [here](/reference/document_interacting/add_plots).
+- **Add Tables Reference**: Refer to the reference on `add_tables()` [here](/reference/document_interacting/add_tables).
+- **Make Doc Dirs Reference**: Refer to the reference on `make_doc_dirs()` [here](/reference/utilities/make_doc_dirs).
+- **Remove Tables, Figures, and Footnotes Reference**: Refer to the reference on `remove_tables_figures_footnotes()` [here](/reference/document_interacting/remove_tables_figures_footnotes).

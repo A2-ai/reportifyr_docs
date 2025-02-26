@@ -1,0 +1,44 @@
+---
+title: Toggle Logger
+description: toggle_logger() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `toggle_logger()` function in the `reportifyr` package adjusts the global logging level for the package. 
+
+---
+
+## `toggle_logger()`
+
+<EmbeddedHTML filename="/public/html_files/toggle_logger.html"/>
+
+---
+
+### Returns
+
+A `log4r` logger object is assigned to the `.le` environment at `.le$logger`. 
+
+---
+
+### Assigned Logging Levels
+
+The following logging levels are assigned and used throughout the `reportifyr` package:
+
+- **`DEBUG`**: Most verbose level, including detailed workflow progress prompts.
+
+- **`INFO`**: General workflow progress prompts.
+
+- **`WARN`**: Default, displays potential issues and warnings.
+
+- **`ERROR`**: Reports events that cause the function to fail.
+
+There is an additional logging level, `FATAL`, that is not currently used.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **log4r Reference Manual**: Refer to the `log4r` [reference manual](https://cran.r-project.org/web/packages/log4r/log4r.pdf) for specific inquiries related to `log4r`.

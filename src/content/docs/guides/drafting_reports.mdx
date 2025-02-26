@@ -1,0 +1,150 @@
+---
+title: Drafting Reports
+description: A guide on drafting reports with reportifyr
+---
+
+## Initial Report Requirements
+
+To begin building reports with `reportifyr` you will need to insert figure or 
+table (artifact) captions into a Microsoft Word document (report) using the `Insert Caption` 
+button under the `References` ribbon:
+
+![](/images/caption-ribbon.png)
+
+Below the caption, you will need to add:
+
+`{rpfy}:artifact_file_name`
+
+As seen here:
+
+![](/images/magic-string.png)
+
+This string triggers the magic behind `reportifyr`, and allows for the artifact 
+to be inserted correctly into a given report. 
+
+An important note, the `artifact_file_name` will need to be in the appropriate 
+`OUTPUTS` directory with its associated metadata file (as covered in
+[Performing Analyses](/guides/performing_analyses)) to ensure full functionality
+of `reportifyr`.
+
+## Populating a Report
+
+In [Performing Analyses](/guides/performing_analyses), 
+we saved two figures and two tables to be inserted into a report. 
+
+The [template report](https://github.com/A2-ai/reportifyr/blob/v0.2.6/inst/extdata/template.docx) 
+report packaged with `reportifyr`, already includes the appropriate artifact captions 
+and associated magic strings required for these two figures and tables. Feel free 
+to take a look at the template before we start populating it!
+
+With artifacts generated and our initial template provided, we can now start 
+filling in the report! The first thing we'll do is assign the input (`docx_in`) 
+and output (`docx_out`) document names. We will be populating the `template.docx` 
+which contains no figures or tables inserted by `reportifyr`. 
+
+### Making Document Directories
+
+```r
+docx_shell <- here::here("report", "shell", "template.docx")
+doc_dirs <- make_doc_dirs(docx_in = docx_shell)
+```
+
+The `make_doc_dirs()` helper function creates several file paths that are useful 
+for this process:
+
+```r
+doc_dirs
+
+$doc_in
+[1] "/cluster-data/user-homes/user/project/report/shell/draft.docx"
+
+$doc_clean
+[1] "/cluster-data/user-homes/user/project/report/draft/draft-clean.docx"
+
+$doc_tables
+[1] "/cluster-data/user-homes/user/project/report/draft/draft-tabs.docx"
+
+$doc_tabs_figs
+[1] "/cluster-data/user-homes/user/project/report/draft/draft-tabsfigs.docx"
+
+$doc_draft
+[1] "/cluster-data/user-homes/user/project/report/draft/draft-draft.docx"
+
+$doc_final
+[1] "/cluster-data/user-homes/user/project/report/final/draft-final.docx"
+```
+
+### Adding Tables
+
+We can begin by inserting the tables:
+
+```r
+tables_path <- here::here("OUTPUTS", "tables")
+
+add_tables(
+  docx_in = doc_dirs$doc_in,
+  docx_out = doc_dirs$doc_tables,
+  tables_path = tables_path
+)
+```
+
+We can see the tables were successfully inserted:
+
+![](/images/add-tables.png)
+
+### Adding Plots
+
+Now that the tables are inserted, we can insert the figures:
+
+```r
+figures_path <- here::here("OUTPUTS", "figures")
+
+add_plots(
+  docx_in = doc_dirs$doc_tables,
+  docx_out = doc_dirs$doc_tabs_figs,
+  figures_path = figures_path
+)
+```
+
+Just like tables, figures are also present in document:
+
+![](/images/add-plots.png)
+
+### Add Footnotes
+
+Let's add the footnotes for artifacts now:
+
+```r
+standard_footnotes_yaml <- here::here("report", "standard_footnotes.yaml")
+
+add_footnotes(
+  docx_in = doc_dirs$doc_tabs_figs,
+  docx_out = doc_dirs$doc_draft,
+  figures_path = figures_path,
+  tables_path = tables_path,
+  standard_footnotes_yaml = standard_footnotes_yaml
+)
+```
+
+We now can see our artifacts have footnotes inserted:
+
+![](/images/add-footnotes-plot.png)
+
+![](/images/add-footnotes-table.png)
+
+### Finalizing a Report
+
+With all of our artifacts inserted, we can generate a clean final report. This 
+severs the link between `reportifyr` and the report, so please be mindful when 
+using this function:
+
+```r
+finalize_document(
+  docx_in = doc_dirs$doc_draft,
+  docx_out = doc_dirs$doc_final
+)
+```
+
+This creates a finalized report, free of bookmarks and magic strings, while also 
+capturing its own metadata. The metadata includes a file `hash` so you can see if 
+this document has been updated or modified since its creation.

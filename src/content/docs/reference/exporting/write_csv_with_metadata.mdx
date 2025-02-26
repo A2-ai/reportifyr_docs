@@ -1,0 +1,44 @@
+---
+title: Write CSV with Metadata
+description: write_csv_with_metadata() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `write_csv_with_metadata()` function in the `reportifyr` package is an extension of the `write.csv()` function from the `utils` package. It saves data objects as both `.csv` files and as an `.RTF` file via `reportifyr`'s `save_as_rtf()` function, while also simultaneously capturing analysis-relevant metadata in a `.json` file via `reportifyr`'s `write_object_metadata()` function.
+
+---
+
+## `write_csv_with_metadata()`
+
+<EmbeddedHTML filename="/public/html_files/write_csv_with_metadata.html"/>
+
+---
+
+### Returns
+
+- **csv File**: The data object saved to the specified `file`.
+- **RTF File**: An `.RTF` file of the serialized R object, formatted as table1 if specified.
+- **Metadata File**: A `.json` file saved with metadata.
+
+If the source file is not tracked by Git, a similar warning is displayed:
+
+```r
+2025-01-10 18:30:00 [WARN] Source file path not tracked by git: /cluster-data/user-homes/user/project/scripts/analysis.R
+```
+
+---
+
+### Logging 
+
+- **Debug**: Logs the start and end of the function, as well as metadata validation and writing.
+- **Info**: Logs a confirmation of both `.csv` and `.RTF` file creation, as well as metadata capture.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details. 
+- **write.csv Documentation**: Refer to the `utils::write.csv()` [function](https://search.r-project.org/CRAN/refmans/AlphaPart/html/write.csv.html) for additional arguments to pass to `write_csv_with_metadata()`.
+- **Write Object Metadata Reference**: Refer to the reference on `write_object_metadata()` [here](/reference/metadata/write_object_metadata).

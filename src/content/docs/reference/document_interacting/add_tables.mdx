@@ -1,0 +1,44 @@
+---
+title: Add Tables
+description: add_tables() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `add_tables()` function in the `reportifyr` package parses a Microsoft Word document (`.docx` file) for predefined magic strings, and inserts corresponding tables from a specified directory.
+
+---
+
+## `add_tables()`
+
+<EmbeddedHTML filename="/public/html_files/add_tables.html"/>
+
+---
+
+### Returns
+
+- **Updated Document**: A new `.docx` file with tables inserted at the appropriate positions.
+
+Time taken by the function:
+
+```r
+0.788 sec elapsed
+```
+
+---
+
+### Logging
+
+- **Debug**: Logs the start and end of the function and if the `debug` argument is `TRUE`.
+- **Info**: Logs key function milestones, such as magic string detection, file loading, and table insertions.
+- **Warn**: Logs when a table or its associated metadata `.json` files are missing or if magic strings are not found within the `docx_in`. 
+- **Error**: Logs errors for missing `docx_in` and issues with `docx_in` and/or `docx_out` file extensions.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **Make Doc Dirs Reference**: Refer to the reference on `make_doc_dirs()` [here](/reference/utilities/make_doc_dirs).
+- **Write Object Metadata Reference**: Refer to the reference on `write_object_metadata()` [here](/reference/metadata/write_object_metadata).

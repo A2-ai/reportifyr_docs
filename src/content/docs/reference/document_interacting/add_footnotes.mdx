@@ -1,0 +1,46 @@
+---
+title: Add Footnotes
+description: add_footnotes() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `add_footnotes()` function in the `reportifyr` package parses a Microsoft Word document (`.docx` file) for predefined magic strings, and inserts corresponding footnotes.
+
+---
+
+## `add_footnotes()`
+
+<EmbeddedHTML filename="/public/html_files/add_footnotes.html"/>
+
+---
+
+### Returns
+
+- **Updated Document**: A new `.docx` file with footnotes inserted at the appropriate positions.
+
+Time taken by the function:
+
+```r
+0.335 sec elapsed
+```
+
+---
+
+### Logging
+
+- **Debug**: Logs the start and end of the function, the start and end of each `processx::run()`, and if the `debug` argument is `TRUE`.
+- **Info**: Logs `docx_in` and metadata `.json` validation and `stdout`, `stderr` and `status` on succcessful execution of each `processx::run()`
+- **Warning**: Logs the `stderr` if `processx:run()` returns a non-zero character. 
+- **Error**: Logs errors for missing `docx_in`, missing virtual environment (`venv_path`), issues with `docx_in` and/or `docx_out` file extensions, and any errors returned from `processx::run()`.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **processx Reference Manual**: Refer to the `processx` [reference manual](https://cran.r-project.org/web/packages/processx/processx.pdf) for specific inquiries related to `processx`.
+- **Initialize Report Project Reference**: Refer to the reference on `initialize_report_project()` [here](/reference/setup/initialize_report_project).
+- **Make Doc Dirs Reference**: Refer to the reference on `make_doc_dirs()` [here](/reference/utilities/make_doc_dirs).
+- **Write Object Metadata Reference**: Refer to the reference on `write_object_metadata()` [here](/reference/metadata/write_object_metadata).

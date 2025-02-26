@@ -1,0 +1,35 @@
+---
+title: Format Flextable
+description: format_flextable() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `format_flextable()` function in the `reportifyr` package formats data frames or existing flextable objects according to a predefined flextable specification. 
+
+---
+
+## `format_flextable()`
+
+<EmbeddedHTML filename="/public/html_files/format_flextable.html"/>
+
+---
+
+### Returns
+
+A formatted flextable object with styling applied based on the specified `table1_format` value. 
+
+---
+
+### Logging 
+
+- **Debug**: Logs the start and end of the function, as well as validation of inputs.
+- **Info**: Logs the applied formatting mode (default or `table1_format`), and whether the input is converted to a flextable.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **flextable Reference Manual**: Refer to the `flextable` [reference manual](https://cran.r-project.org/web/packages/flextable/flextable.pdf) for specific inquiries related to `flextable`.

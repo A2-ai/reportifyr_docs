@@ -1,0 +1,45 @@
+---
+title: Save RDS with Metadata
+description: save_rds_with_metadata() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `save_rds_with_metadata()` function in the `reportifyr` package is an extension of the base `saveRDS()` function. It saves R objects as both an `.RDS` file and as an `.RTF` file via `reportifyr`'s `save_as_rtf()` function, while also simultaneously capturing analysis-relevant metadata in a `.json` file via `reportifyr`'s `write_object_metadata()` function.
+
+---
+
+## `save_rds_with_metadata()`
+
+<EmbeddedHTML filename="/public/html_files/save_rds_with_metadata.html"/>
+
+---
+
+### Returns
+
+- **RDS File**: The serialized R object saved to the specified `file`.
+- **RTF File**: An `.RTF` file of the serialized R object, formatted as table1 if specified.
+- **Metadata File**: A `.json` file saved with metadata.
+
+
+If the source file is not tracked by Git, a similar warning is displayed:
+
+```r
+2025-01-10 18:30:00 [WARN] Source file path not tracked by git: /cluster-data/user-homes/user/project/scripts/analysis.R
+```
+
+---
+
+### Logging 
+
+- **Debug**: Logs the start and end of the function, as well as metadata validation and writing.
+- **Info**: Logs a confirmation of both `.RDS` and `.RTF` file creation, as well as metadata capture.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details. 
+- **saveRDS Documentation**: Refer to the `saveRDS()` [function](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/readRDS) for additional arguments to pass to `save_rds_with_metadata()`.
+- **Write Object Metadata Reference**: Refer to the reference on `write_object_metadata()` [here](/reference/metadata/write_object_metadata).

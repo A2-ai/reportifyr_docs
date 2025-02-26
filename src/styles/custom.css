@@ -1,0 +1,13 @@
+.hero img {
+  max-width: 75% !important;  /* Forces image to scale */
+  height: auto;  /* Maintains aspect ratio */
+}
+
+/* Balanced blues and greens */
+a[href*="setup"] .icon { background-color: #5160ac !important; } /* Primary Blue */
+a[href*="exporting"] .icon { background-color: #5f8dd6 !important; } /* Mint Green */
+a[href*="metadata"] .icon { background-color: #79c6e8 !important; } /* Deep Green */
+a[href*="document_interacting"] .icon { background-color: #91bfc4 !important; } /* Sky Blue */
+a[href*="report_building"] .icon { background-color: #6e748e !important; } /* Navy Blue */
+a[href*="utilities"] .icon { background-color: #7b9dbc !important; } /* Accessible Green */
+

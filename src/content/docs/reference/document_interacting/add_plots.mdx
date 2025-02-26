@@ -1,0 +1,45 @@
+---
+title: Add Plots
+description: add_plots() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `add_plots()` function in the `reportifyr` package parses a Microsoft Word document (`.docx` file) for predefined magic strings, and inserts corresponding figures from a specified directory.
+
+---
+
+## `add_plots()`
+
+<EmbeddedHTML filename="/public/html_files/add_plots.html"/>
+
+---
+
+### Returns
+
+- **Updated Document**: A new `.docx` file with figures inserted at the appropriate positions.
+
+Time taken by the function:
+
+```r
+0.403 sec elapsed
+```
+
+---
+
+### Logging
+
+- **Debug**: Logs the start and end of the function and if the `debug` argument is `TRUE`.
+- **Info**: Logs `docx_in` validation, set figure dimensions, and `stdout`, `stderr` and `status` on succcessful execution of `processx::run()` 
+- **Error**: Logs errors for missing `docx_in`, issues with `docx_in` and/or `docx_out` file extensions, and any errors returned from `processx::run()`.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **processx Reference Manual**: Refer to the `processx` [reference manual](https://cran.r-project.org/web/packages/processx/processx.pdf) for specific inquiries related to `processx`.
+- **Initialize Report Project Reference**: Refer to the reference on `initialize_report_project()` [here](/reference/setup/initialize_report_project).
+- **Make Doc Dirs Reference**: Refer to the reference on `make_doc_dirs()` [here](/reference/utilities/make_doc_dirs).
+- **Write Object Metadata Reference**: Refer to the reference on `write_object_metadata()` [here](/reference/metadata/write_object_metadata).

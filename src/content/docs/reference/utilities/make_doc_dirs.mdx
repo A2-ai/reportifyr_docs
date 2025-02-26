@@ -1,0 +1,35 @@
+---
+title: Make Document Directories
+description: make_doc_dirs() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `make_doc_dirs()` function in the `reportifyr` package generates a structured set of output paths for a given `docx_in`. 
+
+---
+
+## `make_doc_dirs()`
+
+<EmbeddedHTML filename="/public/html_files/make_doc_dirs.html"/>
+
+---
+
+### Returns
+
+A named list containing file paths for `doc_in`, `doc_clean`, `doc_tables`, `doc_tabs_figs`, `doc_draft`, and `doc_final`. 
+
+---
+
+### Logging
+
+- **Debug**: Logs the start and end of the function and any `base_path` adjustments.
+- **Info**: Logs `docx_in` and `doc_name` validation, as well as file path creation.
+- **Error**: Logs errors for missing `docx_in` and issues with `docx_in` file extensions.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.

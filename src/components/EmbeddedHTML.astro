@@ -1,0 +1,35 @@
+---
+import { readFile } from 'node:fs/promises'
+import * as cheerio from 'cheerio';
+
+// Define the prop
+interface Props {
+  filename: string;
+}
+
+// Destructure it from Astro.props
+const { filename } = Astro.props; 
+
+// Read file content
+let htmlContent = await readFile(`./${filename}`, 'utf-8');
+
+// Load into cheerio
+const $ = cheerio.load(htmlContent);
+
+// Remove <h2> elements
+$('h2').remove();
+
+// Get modified HTML
+htmlContent = $.html();
+---
+
+<div class="embedded-content prose dark:prose-invert">
+  <Fragment set:html={htmlContent} />
+</div>
+
+<style>
+  .embedded-content {
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+  }
+</style>

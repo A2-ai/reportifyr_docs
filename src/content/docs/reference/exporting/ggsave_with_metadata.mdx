@@ -1,0 +1,45 @@
+---
+title: ggsave with Metadata
+description: ggsave_with_metadata() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `ggsave_with_metadata()` function in the `reportifyr` package is an extension of the `ggsave()` function from the `ggplot2` package. It saves plot objects and simultaneously captures analysis-relevant metadata in a `.json` file via `reportifyr`'s `write_object_metadata()` function.
+
+---
+
+## `ggsave_with_metadata()`
+
+<EmbeddedHTML filename="/public/html_files/ggsave_with_metadata.html"/>
+
+---
+
+### Returns
+
+- **Plot File**: A plot saved according to the specified `filename` and `...` provided.
+- **Metadata File**: A `.json` file saved with metadata.
+
+Additionally, a prompt confirms that an image with dimensions H x W (`height` x `width`) inches has been successfully saved to the specified `filename`.
+
+If the source file is not tracked by Git, a similar warning is displayed:
+
+```r
+2025-01-10 18:30:00 [WARN] Source file path not tracked by git: /cluster-data/user-homes/user/project/scripts/analysis.R
+```
+
+---
+
+### Logging 
+
+- **Debug**: Logs the start and end of the function, as well as metadata validation and writing.
+- **Info**: Logs a confirmation of plot saving and metadata capture.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details. 
+- **ggsave Documentation**: Refer to the `ggplot2::ggsave()` [function](https://ggplot2.tidyverse.org/reference/ggsave.html) for additional arguments to pass to `ggsave_with_metadata()`.
+- **Write Object Metadata Reference**: Refer to the reference on `write_object_metadata()` [here](/reference/metadata/write_object_metadata).

@@ -1,0 +1,36 @@
+---
+title: Preview Metadata Files
+description: preview_metadata_files() reference.
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `preview_metadata_files()` function in the `reportifyr` package provides a summary of `reportifyr` metadata stored in `.json` files within a specified directory (`file_dir`). 
+
+---
+
+## `preview_metadata_files()`
+
+<EmbeddedHTML filename="/public/html_files/preview_metadata_files.html"/>
+
+---
+
+### Returns
+
+A data frame summarizing metadata for each `.json` file within a given `file_dir`.
+
+---
+
+### Logging 
+
+- **Debug**: Logs the start and end of the function, processing of each file, and successful extraction of metadata fields.
+- **Info**: Logs the `file_dir` validation, file discovery, and formatted metadata for each file.
+- **Error**: Logs issues such as a missing `file_dir`, no `.json` files found, or invalid metadata fields.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details. 
+- **JSON Documentation**: Learn more about `JSON` structure and syntax [here](https://www.json.org/json-en.html).

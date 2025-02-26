@@ -1,0 +1,37 @@
+---
+title: Validate Object
+description: validate_object() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `validate_object()` function in the `reportifyr` package checks whether a file’s stored `hash` in its corresponding metadata `.json` file matches its current `hash`. 
+
+---
+
+## `validate_object()`
+
+<EmbeddedHTML filename="/public/html_files/validate_object.html"/>
+
+---
+
+### Returns
+
+- **Logical**: `TRUE` if the file’s `hash` matches the stored `hash`, otherwise `FALSE`.
+
+---
+
+### Logging
+
+- **Debug**: Logs the start and end of the function.
+- **Info**: Logs a confirmation of `file`, its corresponding metadata file, and both `hash` values.
+- **Warn**: Logs when a hash mismatch is encountered. 
+- **Error**: Logs errors for missing `file`, its corresponding metadata file, and if the metadata lacks a value for the `hash` field.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **digest Reference Manual**: Refer to the `digest` [reference manual](https://cran.r-project.org/web/packages/digest/digest.pdf) for specific inquiries related to `hash` values generated using `digest::digest()`.

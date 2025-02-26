@@ -1,0 +1,66 @@
+---
+title: A Streamlined Workflow
+description: A guide on streamlining report generation with reportifyr
+---
+
+## Initial Report Requirements
+
+As with [Drafting Reports](/guides/drafting_reports), there is an
+initial set of requirements that the Microsoft Word document (report) must satisfy.
+
+The report must contain:
+
+- **figure or table (artifact) captions**
+- **`reportifyr` magic strings**
+
+### Streamlined Report Building
+
+`reportifyr` also offers a wrapper function to streamline and ease report generation 
+and report updating. The [Drafting Reports](/guides/drafting_reports) process gives
+you sequential control of adding tables, plots, and footnotes in a step-wise
+process. However, if this is not necessary, you can call `build_report()` to
+perform all of those actions at once:
+
+```r
+docx_shell <- here::here("report", "shell", "template.docx")
+doc_dirs <- make_doc_dirs(docx_in = docx_shell)
+
+figures_path  <- here::here("OUTPUTS", "figures")
+tables_path <- here::here("OUTPUTS", "tables")
+standard_footnotes_yaml <- here::here("report", "standard_footnotes.yaml")
+
+build_report(
+  docx_in = doc_dirs$doc_in,
+  docx_out = doc_dirs$doc_draft,
+  figures_path = figures_path,
+  tables_path = tables_path,
+  standard_footnotes_yaml = standard_footnotes_yaml,
+  add_footnotes = TRUE,
+  include_object_path = FALSE,
+  footnotes_fail_on_missing_metadata = TRUE
+)
+```
+
+An importante note, if your report already includes artifacts and footnotes added 
+by `reportifyr`, this wrapper function will remove them first to prevent duplication.
+
+The `build_report()` function produces the same `reportifyr` draft as [Drafting Reports](/guides/drafting_reports), 
+but with only a single function call:
+
+![](/images/add-footnotes-table.png)
+
+![](/images/add-footnotes-plot.png)
+
+### Finalizing a Report
+
+After that, we can remove the magic strings and bookmarks with the same 
+`finalize_document()` function:
+
+```r
+finalize_document(
+  docx_in = doc_dirs$doc_draft,
+  docx_out = doc_dirs$doc_final
+)
+```
+
+Thus streamlining the report drafting process to two function calls! 

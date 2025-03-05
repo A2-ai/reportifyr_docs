@@ -55,7 +55,7 @@ export default defineConfig({
         {
           label: 'Guides',
           items: [
-            { label: "reportifyr's User Guides", slug: 'guides/user_guide' },
+            { label: "Intro to reportifyr", slug: 'guides/intro' },
             { label: "reportifyr's New User Guide", slug: 'guides/new_user_guide' },
             { label: "Initializing reportifyr", slug: 'guides/initializing_reportifyr' },
             { label: "Performing Analyses", slug: 'guides/performing_analyses' },

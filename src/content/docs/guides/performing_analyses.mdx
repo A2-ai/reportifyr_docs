@@ -9,6 +9,7 @@ pagefind: true
 Let's first create a concentration-time plot of the Theophylline data set:
 
 ```r
+library(reportifyr)
 library(ggplot2)
 library(dplyr)
 
@@ -23,7 +24,7 @@ p <- ggplot(data, aes(x = Time, y = conc, group = Subject)) +
 p
 ```
 
-![](/reportifyr_docs/images/theoph_pk_plot.png)
+![](/reportifyr_docs/images/theoph-pk-plot.png)
 
 ### Saving the Figure and Creating Metadata
 

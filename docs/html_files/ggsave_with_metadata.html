@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>R: Wrapper around the ggplot2 ggsave function. Saves a ggplot...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ggsave_with_metadata</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Wrapper around the ggplot2 ggsave function. Saves a ggplot (or other grid object) and captures analysis relevant metadata in a .json file</h2>
+
+<h3>Description</h3>
+
+<p>Extension to the <code>ggsave()</code> function that allows capturing object metadata as a separate <code>.json</code> file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ggsave_with_metadata(
+  filename,
+  plot = ggplot2::last_plot(),
+  meta_type = "NA",
+  meta_equations = NULL,
+  meta_notes = NULL,
+  meta_abbrevs = NULL,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="filename">filename</code></td>
+<td>
+<p>The filename for the plot to save to.</p>
+</td></tr>
+<tr><td><code id="plot">plot</code></td>
+<td>
+<p>The plot object to save. Default is the last displayed plot (<code>ggplot2::last_plot()</code>).</p>
+</td></tr>
+<tr><td><code id="meta_type">meta_type</code></td>
+<td>
+<p>A string to specify the type of object. Default is <code>"NA"</code>.</p>
+</td></tr>
+<tr><td><code id="meta_equations">meta_equations</code></td>
+<td>
+<p>A string or vector of strings representing equations to include in the metadata. Default is <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="meta_notes">meta_notes</code></td>
+<td>
+<p>A string or vector of strings representing notes to include in the metadata. Default is <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="meta_abbrevs">meta_abbrevs</code></td>
+<td>
+<p>A string or vector of strings representing abbreviations to include in the metadata. Default is <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed to the <code>ggplot2::ggsave()</code> function.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+
+# ---------------------------------------------------------------------------
+# Construct and save a simple ggplot
+# ---------------------------------------------------------------------------
+g &lt;- ggplot2::ggplot(
+  data = Theoph,
+  ggplot2::aes(x = Time, y = conc, group = Subject)
+) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::theme_bw()
+
+# Save a png using the wrapper function
+figures_path &lt;- here::here("OUTPUTS", "figures")
+plot_file_name &lt;- "01-12345-pk-timecourse1.png"
+ggsave_with_metadata(filename = file.path(figures_path, plot_file_name))
+
+## End(Not run)
+</code></pre>
+
+</main>
+
+</div>
+</body></html>

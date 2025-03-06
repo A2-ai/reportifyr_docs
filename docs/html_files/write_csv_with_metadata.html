@@ -1,0 +1,102 @@
+<!DOCTYPE html><html><head><title>R: Wrapper around the write.csv function. Saves data as .RDS and...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>write_csv_with_metadata</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Wrapper around the write.csv function. Saves data as .RDS and .RTF and captures analysis relevant metadata in a .json file</h2>
+
+<h3>Description</h3>
+
+<p>Extension to the <code>write.csv()</code> function that allows capturing object metadata as a separate <code>.json</code> file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>write_csv_with_metadata(
+  object,
+  file,
+  meta_type = "NA",
+  meta_equations = NULL,
+  meta_notes = NULL,
+  meta_abbrevs = NULL,
+  table1_format = FALSE,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="object">object</code></td>
+<td>
+<p>The <code>R</code> object to serialize.</p>
+</td></tr>
+<tr><td><code id="file">file</code></td>
+<td>
+<p>The connection or name of the file where the <code>R</code> object is saved.</p>
+</td></tr>
+<tr><td><code id="meta_type">meta_type</code></td>
+<td>
+<p>A string to specify the type of object. Default is <code>"NA"</code>.</p>
+</td></tr>
+<tr><td><code id="meta_equations">meta_equations</code></td>
+<td>
+<p>A string or vector of strings representing equations to include in the metadata. Default is <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="meta_notes">meta_notes</code></td>
+<td>
+<p>A string or vector of strings representing notes to include in the metadata. Default is <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="meta_abbrevs">meta_abbrevs</code></td>
+<td>
+<p>A string or vector of strings representing abbreviations to include in the metadata. Default is <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="table1_format">table1_format</code></td>
+<td>
+<p>A boolean indicating whether to apply table1-style formatting. Default is <code>FALSE</code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed to the <code>utils::write.csv()</code> function.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+
+# ---------------------------------------------------------------------------------
+# Save a simple table
+# ---------------------------------------------------------------------------------
+tables_path &lt;- here::here("OUTPUTS", "tables")
+outfile_name &lt;- "01-12345-pk-theoph.csv"
+
+write_csv_with_metadata(
+  object = Theoph,
+  file = file.path(tables_path, out_name),
+  row_names = FALSE
+)
+
+## End(Not run)
+</code></pre>
+
+</main>
+
+</div>
+</body></html>

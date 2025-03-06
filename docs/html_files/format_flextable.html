@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><title>R: Formats data frames to a flextable specification</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>format_flextable</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Formats data frames to a flextable specification</h2>
+
+<h3>Description</h3>
+
+<p>Formats data frames to a flextable specification
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>format_flextable(data_in, table1_format = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="data_in">data_in</code></td>
+<td>
+<p>The input data to be formatted. Must be either a data frame or a flextable object.</p>
+</td></tr>
+<tr><td><code id="table1_format">table1_format</code></td>
+<td>
+<p>A boolean indicating whether to apply table1-style formatting. Default is <code>FALSE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A formatted flextable
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+dt &lt;- head(iris, 10)
+format_flextable(
+  data_in = dt
+)
+
+## End(Not run)
+</code></pre>
+
+</main>
+
+</div>
+</body></html>

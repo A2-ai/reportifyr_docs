@@ -13,6 +13,10 @@ The report must contain:
 - **figure or table (artifact) captions**
 - **`reportifyr` magic strings**
 
+Like so:
+
+![](/reportifyr_docs/images/magic-string.png)
+
 ### Streamlined Report Building
 
 `reportifyr` also offers a wrapper function to streamline and ease report generation 
@@ -22,6 +26,8 @@ process. However, if this is not necessary, you can call `build_report()` to
 perform all of those actions at once:
 
 ```r
+library(reportifyr)
+
 docx_shell <- here::here("report", "shell", "template.docx")
 doc_dirs <- make_doc_dirs(docx_in = docx_shell)
 

@@ -14,6 +14,8 @@ provided in [Drafting Reports](/reportifyr_docs/guides/drafting_reports). To do 
 we can set the `add_footnotes` argument to `FALSE`, instead of its default `TRUE`:
 
 ```r
+library(reportifyr)
+
 docx_shell <- here::here("report", "shell", "template.docx")
 doc_dirs <- make_doc_dirs(docx_in = docx_shell)
 

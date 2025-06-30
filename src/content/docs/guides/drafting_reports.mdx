@@ -9,7 +9,7 @@ To begin building reports with `reportifyr` you will need to insert figure or
 table (artifact) captions into a Microsoft Word document (report) using the `Insert Caption` 
 button under the `References` ribbon:
 
-![](/reportifyr_docs/images/caption-ribbon.png)
+<img src={`${import.meta.env.BASE_URL}/images/caption-ribbon.png`} />
 
 Below the caption, you will need to add:
 
@@ -17,19 +17,19 @@ Below the caption, you will need to add:
 
 As seen here:
 
-![](/reportifyr_docs/images/magic-string.png)
+<img src={`${import.meta.env.BASE_URL}/images/magic-string.png`} />
 
 This string triggers the magic behind `reportifyr`, and allows for the artifact 
 to be inserted correctly into a given report. 
 
 An important note, the `artifact_file_name` will need to be in the appropriate 
 `OUTPUTS` directory with its associated metadata file (as covered in
-[Performing Analyses](/reportifyr_docs/guides/performing_analyses)) to ensure full functionality
-of `reportifyr`.
+<a href={`${import.meta.env.BASE_URL}guides/performing_analyses/`}> Performing Analyses </a>) 
+to ensure full functionality of `reportifyr`.
 
 ## Populating a Report
 
-In [Performing Analyses](/reportifyr_docs/guides/performing_analyses), 
+In <a href={`${import.meta.env.BASE_URL}guides/performing_analyses/`}> Performing Analyses </a>, 
 we saved two figures and two tables to be inserted into a report. 
 
 The [template report](https://github.com/A2-ai/reportifyr/blob/v0.2.6/inst/extdata/template.docx) 
@@ -90,7 +90,7 @@ add_tables(
 
 We can see the tables were successfully inserted:
 
-![](/reportifyr_docs/images/add-tables.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-tables.png`} />
 
 ### Adding Plots
 
@@ -108,7 +108,7 @@ add_plots(
 
 Just like tables, figures are also present in document:
 
-![](/reportifyr_docs/images/add-plots.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-plots.png`} />
 
 ### Add Footnotes
 
@@ -128,9 +128,9 @@ add_footnotes(
 
 We now can see our artifacts have footnotes inserted:
 
-![](/reportifyr_docs/images/add-footnotes-plot.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-footnotes-plot.png`} />
 
-![](/reportifyr_docs/images/add-footnotes-table.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-footnotes-table.png`} />
 
 ### Finalizing a Report
 

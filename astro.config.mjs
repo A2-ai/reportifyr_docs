@@ -7,8 +7,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://a2-ai.github.io/reportifyr_docs/",
-	base: "/reportifyr_docs",
+  site: process.env.ASTRO_SITE || 'http://localhost',
+  base: process.env.ASTRO_BASE || '/',
   markdown: {
     rehypePlugins: [
       rehypeSlug,
@@ -48,8 +48,15 @@ export default defineConfig({
         './src/styles/custom.css',
       ],
       title: 'reportifyr documentation',
-      social: {
-        github: 'https://github.com/a2-ai-tech-training/reportifyr_docs',
+      social: [
+        {
+          icon:  'github',
+          href:  'https://github.com/a2-ai-tech-training/reportifyr_docs',
+          label: 'GitHub repo'
+        }      
+      ],
+      components: {
+        SocialIcons: './src/components/VersionSelect.astro'
       },
       sidebar: [
         {

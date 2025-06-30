@@ -1,0 +1,57 @@
+---
+import { VERSIONS } from '../data/versions';   // VERSIONS[0] = newest
+
+// pull out both pieces for clarity
+const [{ tag: LATEST_TAG, label: LATEST_LABEL }] = VERSIONS;
+
+// helper: build URL for a tag + current page tail
+const buildTarget = (tag: string, tail: string) =>
+  tag === LATEST_TAG ? (tail || '/') : `/versions/${tag}${tail}`;
+---
+
+<select
+  id="version-select"
+  aria-label="Documentation version"
+  onchange="switchVersion(this.value)"
+  style="padding:.25rem;border-radius:.25rem"
+>
+  <!-- display the *label* but keep the *tag* as the value -->
+  <option value={LATEST_TAG}>Latest&nbsp;({LATEST_LABEL})</option>
+
+  {VERSIONS.slice(1).map(({ tag, label }) => (
+    <option value={tag}>{label}</option>
+  ))}
+</select>
+
+<script is:inline>
+(function () {
+  const LATEST = '<?=LATEST_TAG?>';
+  const sel    = document.getElementById('version-select');
+  if (!sel) return;
+
+  const path  = location.pathname;
+  const match = path.match(/^\/versions\/([^/]+)/);
+  const tail  = match ? path.replace(/^\/versions\/[^/]+/, '') : path;
+  sel.value   = match ? match[1] : LATEST;
+
+  /** ---------- switch handler with 404 fallback ---------- */
+  window.switchVersion = async function (tag) {
+    const target =
+      tag === LATEST ? (tail || '/') : `/versions/${tag}${tail}`;
+
+    try {
+      const ok = await fetch(target, { method: 'HEAD' }).then(r => r.ok);
+
+      location.href = ok
+        ? target
+        : (tag === LATEST               // you asked to keep them on latest
+            ? (tail || '/')
+            : `/versions/${tag}/`);     // or send to that version’s home
+    } catch {
+      /* network error → just jump to the version’s root */
+      location.href = tag === LATEST ? '/' : `/versions/${tag}/`;
+    }
+  };
+})();
+</script>
+

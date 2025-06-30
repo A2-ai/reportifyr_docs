@@ -1,0 +1,56 @@
+name: Build & deploy docs for each Git tag
+
+on:
+  push:
+    tags: ['v*']        # fires on v0.0.1, v0.0.2, etc.
+  workflow_dispatch:    # manual back-fill if you like
+
+permissions:
+  contents: write       # needed to push to gh-pages
+  pages:    write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Derive version slug
+        id: vars
+        run: echo "TAG=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Astro build for ${{ steps.vars.outputs.TAG }}
+        env:
+          ASTRO_BASE: "/reportifyr_docs/versions/${{ steps.vars.outputs.TAG }}"
+          ASTRO_SITE: "https://a2-ai.github.io/reportifyr_docs/versions/${{ steps.vars.outputs.TAG }}"
+
+        run: npm run build     # outputs into ./dist
+
+      - name: Copy version into site tree
+        run: |
+          mkdir -p site/versions/${{ steps.vars.outputs.TAG }}
+          cp -a dist/. site/versions/${{ steps.vars.outputs.TAG }}/
+          
+          cat > site/index.html <<EOF
+          <!doctype html>
+          <meta http-equiv="refresh"
+          content="0; url=/reportifyr_docs/versions/${{ steps.vars.outputs.TAG }}/">
+          <title>Redirecting…</title>
+          <p>Redirecting to documentation ${TAG}…</p>
+          EOF
+
+      - name: Publish to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: site
+          keep_files: true

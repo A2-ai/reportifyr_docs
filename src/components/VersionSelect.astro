@@ -1,12 +1,18 @@
 ---
-import { VERSIONS } from '../data/versions';   // VERSIONS[0] = newest
+import { VERSIONS } from '../data/versions';
 
-// pull out both pieces for clarity
+/** ---------- constants we can calculate once ---------- */
+const ROOT = import.meta.env.BASE_URL        // e.g. '/reportifyr_docs/'            (latest)
+              .replace(/\/versions\/[^/]+\/?$/, '')  // remove '/versions/x.y.z'
+              .replace(/\/$/, '');                   // drop trailing slash
+
 const [{ tag: LATEST_TAG, label: LATEST_LABEL }] = VERSIONS;
 
-// helper: build URL for a tag + current page tail
-const buildTarget = (tag: string, tail: string) =>
-  tag === LATEST_TAG ? (tail || '/') : `/versions/${tag}${tail}`;
+/** helper: build a fully qualified path for the same page in another tag */
+const buildTarget = (tag, tail) =>
+  tag === LATEST_TAG
+    ? `${ROOT}${tail || '/'}`
+    : `${ROOT}/versions/${tag}${tail}`;
 ---
 
 <select
@@ -15,9 +21,7 @@ const buildTarget = (tag: string, tail: string) =>
   onchange="switchVersion(this.value)"
   style="padding:.25rem;border-radius:.25rem"
 >
-  <!-- display the *label* but keep the *tag* as the value -->
   <option value={LATEST_TAG}>Latest&nbsp;({LATEST_LABEL})</option>
-
   {VERSIONS.slice(1).map(({ tag, label }) => (
     <option value={tag}>{label}</option>
   ))}
@@ -25,33 +29,33 @@ const buildTarget = (tag: string, tail: string) =>
 
 <script is:inline>
 (function () {
-  const LATEST = '<?=LATEST_TAG?>';
-  const sel    = document.getElementById('version-select');
+  const LATEST = /* @once */ '<?=LATEST_TAG?>';
+  const ROOT   = '<?=ROOT?>';                 // injected at build time
+
+  const sel  = document.getElementById('version-select');
   if (!sel) return;
 
-  const path  = location.pathname;
-  const match = path.match(/^\/versions\/([^/]+)/);
-  const tail  = match ? path.replace(/^\/versions\/[^/]+/, '') : path;
-  sel.value   = match ? match[1] : LATEST;
+  /* ---------- work out where we are ---------- */
+  const path  = location.pathname;            // e.g. /reportifyr_docs/… or /reportifyr_docs/versions/x.y.z/…
+  const m     = path.match(/^\/[^/]+\/versions\/([^/]+)/);   // capture tag if present
+  const tail  = m ? path.replace(/^\/[^/]+\/versions\/[^/]+/, '')   // '/guide/foo'
+                  : path.replace(/^\/[^/]+/, '');                    // latest → strip '/reportifyr_docs'
 
-  /** ---------- switch handler with 404 fallback ---------- */
+  sel.value = m ? m[1] : LATEST;
+
+  /* ---------- change handler ---------- */
   window.switchVersion = async function (tag) {
-    const target =
-      tag === LATEST ? (tail || '/') : `/versions/${tag}${tail}`;
+    const target = tag === LATEST
+      ? `${ROOT}${tail || '/'}`
+      : `${ROOT}/versions/${tag}${tail}`;
 
     try {
       const ok = await fetch(target, { method: 'HEAD' }).then(r => r.ok);
-
-      location.href = ok
-        ? target
-        : (tag === LATEST               // you asked to keep them on latest
-            ? (tail || '/')
-            : `/versions/${tag}/`);     // or send to that version’s home
+      location.href = ok ? target
+                         : (tag === LATEST ? `${ROOT}/` : `${ROOT}/versions/${tag}/`);
     } catch {
-      /* network error → just jump to the version’s root */
-      location.href = tag === LATEST ? '/' : `/versions/${tag}/`;
+      location.href = tag === LATEST ? `${ROOT}/` : `${ROOT}/versions/${tag}/`;
     }
   };
 })();
 </script>
-

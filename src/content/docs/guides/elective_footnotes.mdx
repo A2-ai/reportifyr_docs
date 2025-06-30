@@ -10,8 +10,8 @@ There are certain situations where footnotes might not be desired on all figures
 `reportifyr` supports this behavior through arguments to the `build_report()` function. 
 
 First, we’ll build a report that contains no footnotes using the `template.docx`
-provided in [Drafting Reports](/reportifyr_docs/guides/drafting_reports). To do this, 
-we can set the `add_footnotes` argument to `FALSE`, instead of its default `TRUE`:
+provided in <a href={`${import.meta.env.BASE_URL}/guides/drafting_reports/`}>Drafting Reports</a>. 
+To do this, we can set the `add_footnotes` argument to `FALSE`, instead of its default `TRUE`:
 
 ```r
 library(reportifyr)
@@ -37,9 +37,9 @@ build_report(
 
 This produces a report without any footnotes: 
 
-![](/reportifyr_docs/images/add-tables.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-tables.png`} />
 
-![](/reportifyr_docs/images/add-plots.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-plots.png`} />
 
 ## Elective Footnotes
 
@@ -64,7 +64,7 @@ using `format_flextable()` with default arguments.
 arguments. 
 
 From here, let's create another figure and table to add to the artifacts
-generated from [Performing Analyses](/reportifyr_docs/guides/performing_analyses):
+generated from <a href={`${import.meta.env.BASE_URL}/guides/performing_analyses/`}>Performing Analyses</a>:
 
 ```r
 library(ggplot2)
@@ -121,17 +121,17 @@ utils::write.csv(
 knitr::kable(pk_demo)
 ```
 
-![](/reportifyr_docs/images/theoph-pk-gof.png)
+<img src={`${import.meta.env.BASE_URL}/images/theoph-pk-gof.png`} />
 
-![](/reportifyr_docs/images/pk-demo.png)
+<img src={`${import.meta.env.BASE_URL}/images/pk-demo.png`} />
 
 We will now use the `template-ef.docx` [file](https://github.com/A2-ai/reportifyr/blob/v0.2.6/inst/extdata/template-ef.docx) 
 supplied by the `reportifyr` package, which contains captions and magic strings 
 in the appendices for our new artifacts, to build a report from:
 
-![](/reportifyr_docs/images/figure_4_caption.png)
+<img src={`${import.meta.env.BASE_URL}/images/figure_4_caption.png`} />
 
-![](/reportifyr_docs/images/table_4_caption.png)
+<img src={`${import.meta.env.BASE_URL}/images/table_4_caption.png`} />
 
 ```r
 docx_shell <- here::here("report", "shell", "template-ef.docx")
@@ -151,15 +151,15 @@ build_report(
 
 Notice how the artifacts within the appendices do not have footnotes:
 
-![](/reportifyr_docs/images/figure_4_app.png)
+<img src={`${import.meta.env.BASE_URL}/images/figure_4_app.png`} />
 
-![](/reportifyr_docs/images/table_4_app.png)
+<img src={`${import.meta.env.BASE_URL}/images/table_4_app.png`} />
 
 Yet, artifacts within the body of the report do have footnotes:
 
-![](/reportifyr_docs/images/add-footnotes-table.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-footnotes-table.png`} />
 
-![](/reportifyr_docs/images/add-footnotes-plot.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-footnotes-plot.png`} />
 
 We can also see in the logs messaged to the console that `theoph-pk-demographics.csv` 
 was missing metadata, as was `theoph-pk-gof.png`, and that default formatting was

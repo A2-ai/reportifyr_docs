@@ -5,8 +5,8 @@ description: A guide on streamlining report generation with reportifyr
 
 ## Initial Report Requirements
 
-As with [Drafting Reports](/reportifyr_docs/guides/drafting_reports), there is an
-initial set of requirements that the Microsoft Word document (report) must satisfy.
+As with <a href={`${import.meta.env.BASE_URL}/guides/drafting_reports/`}>Drafting Reports</a>, there 
+is an initial set of requirements that the Microsoft Word document (report) must satisfy.
 
 The report must contain:
 
@@ -15,13 +15,13 @@ The report must contain:
 
 Like so:
 
-![](/reportifyr_docs/images/magic-string.png)
+<img src={`${import.meta.env.BASE_URL}/images/magic-string.png`} />
 
 ### Streamlined Report Building
 
 `reportifyr` also offers a wrapper function to streamline and ease report generation 
-and report updating. The [Drafting Reports](/reportifyr_docs/guides/drafting_reports) process gives
-you sequential control of adding tables, plots, and footnotes in a step-wise
+and report updating. The <a href={`${import.meta.env.BASE_URL}/guides/drafting_reports/`}>Drafting Reports</a> 
+process gives you sequential control of adding tables, plots, and footnotes in a step-wise
 process. However, if this is not necessary, you can call `build_report()` to
 perform all of those actions at once:
 
@@ -50,12 +50,13 @@ build_report(
 An importante note, if your report already includes artifacts and footnotes added 
 by `reportifyr`, this wrapper function will remove them first to prevent duplication.
 
-The `build_report()` function produces the same `reportifyr` draft as [Drafting Reports](/reportifyr_docs/guides/drafting_reports), 
+The `build_report()` function produces the same `reportifyr` draft as 
+<a href={`${import.meta.env.BASE_URL}/guides/drafting_reports/`}>Drafting Reports</a>, 
 but with only a single function call:
 
-![](/reportifyr_docs/images/add-footnotes-table.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-footnotes-table.png`} />
 
-![](/reportifyr_docs/images/add-footnotes-plot.png)
+<img src={`${import.meta.env.BASE_URL}/images/add-footnotes-plot.png`} />
 
 ### Finalizing a Report
 

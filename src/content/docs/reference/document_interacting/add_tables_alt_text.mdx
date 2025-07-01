@@ -1,0 +1,43 @@
+---
+title: Add Tables Alt Text
+description: add_tables_alt_text() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `add_tables_alt_text()` function in the `reportifyr` package parses a Microsoft Word document (`.docx` file) for predefined magic strings, and inserts the magic string as each table's alt text.
+
+---
+
+## `add_plots_alt_text()`
+
+<EmbeddedHTML filename="/public/html_files/add_tables_alt_text.html"/>
+
+---
+
+### Returns
+
+- **Updated Document**: A new `.docx` file with a table's magic string stored as the table's alt text.
+
+Time taken by the function:
+
+```r
+1.02 sec elapsed
+```
+
+---
+
+### Logging
+
+- **Debug**: Logs the start and end of the function/script and if the `debug` argument is `TRUE`.
+- **Info**: Logs the output document path (`docx_out`), the `stdout` if the `Python` script failed, and the returned `status`/`stdout`/`stderr` on a success.
+- **Warn**: Logs when duplicate figures are found within the input document (`docx_in`). 
+- **Error**: Logs errors when the `Python` script fails.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **Add Tables Reference**: Refer to the reference on `add_tables()` <a href={`${import.meta.env.BASE_URL}/reference/document_interacting/add_tables/`}>here</a>.

@@ -1,0 +1,38 @@
+---
+title: Validate Alt Text Magic Strings
+description: validate_alt_text_magic_strings() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `validate_alt_text_magic_strings()` function in the `reportifyr` package runs a bundled `Python` script that checks whether every figure or table in a Microsoft Word document (`.docx` file) has alt text that exactly matches its magic string.  
+
+---
+
+## `validate_alt_text_magic_strings()`
+
+<EmbeddedHTML filename="/public/html_files/validate_alt_text_magic_strings.html"/>
+
+---
+
+### Returns
+
+Logged warnings for each mismatching alt text and magic string. If no mismatches are present, then the function returns silently. 
+
+---
+
+### Logging
+
+- **Debug**: Logs the start and end of the function/script and if the `debug` argument is `TRUE`.
+- **Info**: Logs the `stdout` if the `Python` script failed and the returned `status`/`stdout`/`stderr` on a success.
+- **Warn**: Logs when mismatched alt text and magic strings are present within the input document (`docx_in`). 
+- **Error**: Logs errors when the `Python` script fails.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.
+- **Add Plots Alt Text Reference**: Refer to the reference on `add_plots_alt_text()` <a href={`${import.meta.env.BASE_URL}/reference/document_interacting/add_plots_alt_text/`}>here</a>.
+- **Add Tables Alt Text Reference**: Refer to the reference on `add_tables_alt_text()` <a href={`${import.meta.env.BASE_URL}/reference/document_interacting/add_tables_alt_text/`}>here</a>.

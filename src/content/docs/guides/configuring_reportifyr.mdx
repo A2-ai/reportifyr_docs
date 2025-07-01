@@ -1,0 +1,182 @@
+---
+title: Configuring reportifyr
+description: A guide on configuring reportifyr.
+---
+
+## What is the `config.yaml` File?
+
+`reportifyr` now ships with a `config.yaml` file that lets you fine-tune how reports are built 
+without requiring verbose `R` code. The `config.yaml` file is automatically copied over while
+<a href={`${import.meta.env.BASE_URL}/guides/initializing_reportifyr/`}>Initializing reportifyr</a>
+to the `report_dir_name`, and the configuration options are applied automatically every time you call 
+`build_report()`, or its nested functions (e.g., `add_footnotes()`), and point to the `config.yaml` 
+file.
+
+## Anatomy of a `config.yaml` File
+
+```yaml
+report_dir_name: "report"
+outputs_dir_name: "OUTPUTS"
+strict: false
+footnotes_font: "Arial Narrow"
+footnotes_font_size: 10
+use_object_path_as_source: FALSE
+wrap_path_in_[]: TRUE
+combine_duplicate_footnotes: TRUE
+footnote_order:
+  - Source
+  - Object
+  - Notes
+  - Abbreviations
+save_table_rtf: FALSE
+fig_alignment: "center"
+use_artifact_size: TRUE
+default_fig_width: 6
+use_embedded_dimensions: TRUE
+label_multi_figures: FALSE
+```
+
+### Project-level Options
+
+- `report_dir_name`: Subdirectory that houses `draft`, `final`, `scripts` subdirectories created by `initialize_report_project()`.
+- `outputs_dir_name`: Subdirectory created by `initialize_report_project()` where exported figures and tables (artifacts) are anticipated to live.
+- `strict`: If `TRUE`, `build_report()` stops if duplicate magic strings are detected. If `FALSE`, `build_report()` allows duplicate figures, but warns on duplicate tables and inserts a table once.
+
+### Table Options
+
+- `save_table_rtf`: If `TRUE`, each table is also exported as an `.RTF` file next to the `.csv`/`.RDS` files when `write_csv_with_metadata()`/`save_RDS_with_metadata()` are called.
+
+This is the only configuration option that does not apply to `build_report()` or its
+nested functions and instead, is intended solely for `write_csv_with_metadata()` and 
+`save_RDS_with_metadata()`.
+
+### Figure Options
+
+- `fig_alignment`: Provides an alignment within the Microsoft Word document for all figures. Current options include: `center`, `left`, or `right`.
+- `use_embedded_dimensions`: If `TRUE`, when updating a Microsoft Word document using `build_report()`, the height and width already set inside the document for a figure is preserved and applied to the updated figure.
+- `use_artifact_size`: If `TRUE`, when running `build_report()` for the first time or when updating a Microsoft Word document using `build_report()`, the height and width for a figure is pulled from the saved `.PNG`/`.JPG` itself.
+- `default_fig_width`: Fallback width (in inches) when neither `use_embedded_dimensions` nor `use_artifact_size` are `TRUE`. Aspect ratio is automatically maintained.
+- `label_multi_figures`: If `TRUE`, adds an `A`/`B`/.. label next to each figure in a multi-figure, while also adding the label to the multi-figure's footnotes. Only applies to sequential multi-figures, not stacked multi-figures nor singular figures.
+
+### Footnote Options
+
+- `footnotes_font`: Specifies the font applied to footnote text.
+- `footnotes_font_size`: Specifies the font size applied to foonote text.
+- `use_object_path_as_source`: If `TRUE`, changes the `Source` file path in the footnotes from the script path to the artifact path.
+- `wrap_path_in_[]`: If `TRUE`, encloses `Source` file path in square brackets.
+- `combine_duplicate_footnotes`: If `TRUE`, suppresses identical footnotes for sequential multi-figures (requires `label_multi_figures: false`).
+- `footnote_order`: Controls the order in which footnotes appear within the Microsoft Word document (e.g., - `Source`, - `Object`, - `Notes`, - `Abbreviations`).
+
+## A Few Examples
+
+### `Strict`
+
+By default, `strict` is set to `FALSE` within the `config.yaml` file upon initializing reportifyr.
+For this example, let's set `strict` to `TRUE` and use the [template-mf report](https://github.com/A2-ai/reportifyr/blob/v0.3.1/inst/extdata/template-mf.docx)
+packaged with `reportifyr` to test it out. 
+
+As the options are passed in from the `config.yaml`, we just need to ensure that we're providing
+the correct file path to it:
+
+```r
+config_yaml <- here::here("report", "config.yaml")
+```
+
+Now we can call `build_report()`:
+
+```r
+library(reportifyr)
+
+docx_shell <- here::here("report", "shell", "template-mf.docx")
+doc_dirs <- make_doc_dirs(docx_in = docx_shell)
+
+figures_path  <- here::here("OUTPUTS", "figures")
+tables_path <- here::here("OUTPUTS", "tables")
+standard_footnotes_yaml <- here::here("report", "standard_footnotes.yaml")
+
+build_report(
+  docx_in = doc_dirs$doc_in,
+  docx_out = doc_dirs$doc_draft,
+  figures_path = figures_path,
+  tables_path = tables_path,
+  standard_footnotes_yaml = standard_footnotes_yaml,
+  config_yaml = config_yaml,
+  add_footnotes = TRUE,
+  include_object_path = FALSE,
+  footnotes_fail_on_missing_metadata = TRUE
+)
+```
+
+The `template-mf.docx` has duplicate magic strings for two figures and should warn the user before 
+halting `build_report()`: 
+
+```r
+2025-06-25 15:00:00 [ERROR] Found duplicate files, please fix: theoph-pk-plot.png, theoph-pk-exposure.png
+Error in validate_docx(docx_in, config_yaml) : 
+  Using strict mode. Fix duplicate artifacts to continue.
+```
+
+### `label_multi_figures`
+
+As briefly mentioned above and in <a href={`${import.meta.env.BASE_URL}/guides/multi_figure_insertion/`}>Multi-figure Insertion</a>, 
+there are a couple configuration options intended solely for multi-figures. One of these is `label_multi_figures`.
+
+By default, `label_multi_figures` is set to `FALSE` within the `config.yaml` file upon initializing 
+reportifyr. For this example, let's set `label_multi_figures` to `TRUE`, ensure that `strict` is set 
+to its default value of `FALSE`, and use the `template-mf.docx` from above.
+
+Once `label_multi_figures` has been set to `TRUE`, we can call `build_report()` again:
+
+```r
+build_report(
+  docx_in = doc_dirs$doc_in,
+  docx_out = doc_dirs$doc_draft,
+  figures_path = figures_path,
+  tables_path = tables_path,
+  standard_footnotes_yaml = standard_footnotes_yaml,
+  config_yaml = config_yaml,
+  add_footnotes = TRUE,
+  include_object_path = FALSE,
+  footnotes_fail_on_missing_metadata = TRUE
+)
+```
+
+We should now generate a `template-mf-draft.docx` that has a labeled multi-figure:
+
+<img src={`${import.meta.env.BASE_URL}/images/config_1.png`} />
+
+while also having labeled footnotes:
+
+<img src={`${import.meta.env.BASE_URL}/images/config_2.png`} />
+
+### `combine_duplicate_footnotes`
+
+The other configuration option intended solely for multi-figures is `combine_duplicate_footnotes`.
+
+By default, `combine_duplicate_footnotes` is set to `TRUE` within the `config.yaml` file upon 
+initializing reportifyr. In this example, let's ensure that the default values for `combine_duplicate_footnotes` 
+(`TRUE`) and `label_multi_figures` (`FALSE`) are set before using the `template-mf.docx` again.
+
+Once default values have been checked or restored, we can call `build_report()`:
+
+```r
+build_report(
+  docx_in = doc_dirs$doc_in,
+  docx_out = doc_dirs$doc_draft,
+  figures_path = figures_path,
+  tables_path = tables_path,
+  standard_footnotes_yaml = standard_footnotes_yaml,
+  config_yaml = config_yaml,
+  add_footnotes = TRUE,
+  include_object_path = FALSE,
+  footnotes_fail_on_missing_metadata = TRUE
+)
+```
+
+We should now generate a `template-mf-draft.docx` that has a non-labeled multi-figure:
+
+<img src={`${import.meta.env.BASE_URL}/images/config_3.png`} />
+
+while also having combined footnote fields (where applicable, see `Source`):
+
+<img src={`${import.meta.env.BASE_URL}/images/config_4.png`} />

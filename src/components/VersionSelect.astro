@@ -3,64 +3,50 @@
 
 import { VERSIONS } from '../data/versions';
 
-// newest entry first
-const [{ tag: LATEST_TAG, label: LATEST_LABEL }] = VERSIONS;
+// strip any trailing slash off BASE_URL so we get e.g.
+//   ''                in `npm run dev`
+//   '/reportifyr_docs' on GH-Pages
+const RAW_BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// compute ROOT at build time from BASE_URL
-const RAW_BASE = import.meta.env.BASE_URL; // e.g. '/' or '/reportifyr_docs/'
-const ROOT = RAW_BASE
-  .replace(/\/versions\/[^/]+\/?$/, '')   // strip any "/versions/x.y.z"
-  .replace(/\/$/, '');                    // drop trailing slash
+// grab newest tag/label
+const [{ tag: LATEST_TAG, label: LATEST_LABEL }] = VERSIONS;
 ---
 
-<select
-  id="version-select"
-  aria-label="Documentation version"
-  style="padding:.25rem;border-radius:.25rem"
-  onchange="switchVersion(this.value)"
->
-  <option value={LATEST_TAG}>Latest&nbsp;({LATEST_LABEL})</option>
-  {VERSIONS.slice(1).map(({ tag, label }) => (
-    <option value={tag}>{label}</option>
-  ))}
-</select>
+{RAW_BASE !== '' && (
+  <>
+    <select id="version-select" style="padding:.25rem; border-radius:.25rem">
+      <option value={LATEST_TAG}>Latest ({LATEST_LABEL})</option>
+      {VERSIONS.slice(1).map(({ tag, label }) => (
+        <option value={tag}>{label}</option>
+      ))}
+    </select>
 
-<script is:inline>
-{`
-(function() {
-  const LATEST = ${JSON.stringify(LATEST_TAG)};
-  const ROOT   = ${JSON.stringify(ROOT)};
+    <script is:inline>
+    {/** inline script gets ballooned into the page *after* the <select> **/}
+    (() => {
+      const RAW_BASE = {JSON.stringify(RAW_BASE)};
+      const LATEST   = {JSON.stringify(LATEST_TAG)};
+      const sel      = document.getElementById('version-select');
+      if (!sel) return;
 
-  const sel = document.getElementById('version-select');
-  if (!sel) return;
+      // pre-select the current version from the URL
+      const path   = window.location.pathname;
+      const prefix = RAW_BASE + '/versions/';
+      sel.value = path.startsWith(prefix)
+        ? path.slice(prefix.length).split('/')[0] || LATEST
+        : LATEST;
 
-  // figure out current tag & tail
-  const path = location.pathname; 
-  const match = path.match(new RegExp('^' + ROOT.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '/versions/([^/]+)'));
-  const tail = match
-    ? path.replace(new RegExp('^' + ROOT.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '/versions/[^/]+'), '')
-    : path.replace(new RegExp('^' + ROOT), '/');
-
-  sel.value = match ? match[1] : LATEST;
-
-  window.switchVersion = async function(tag) {
-    const target = tag === LATEST
-      ? `${ROOT}${tail}`
-      : `${ROOT}/versions/${tag}${tail}`;
-
-    try {
-      const ok = await fetch(target, { method: 'HEAD' }).then(r => r.ok);
-      location.href = ok
-        ? target
-        : (tag === LATEST
-            ? `${ROOT}/`
-            : `${ROOT}/versions/${tag}/`);
-    } catch {
-      location.href = tag === LATEST
-        ? `${ROOT}/`
-        : `${ROOT}/versions/${tag}/`;
-    }
-  };
-})();
-`}
-</script>
+      sel.addEventListener('change', (e) => {
+        const version = e.target.value;
+        // what comes *after* the base (e.g. '/reportifyr_docs')
+        const tail = window.location.pathname.slice(RAW_BASE.length) || '/';
+        const target =
+          version === LATEST
+            ? RAW_BASE + tail
+            : RAW_BASE + '/versions/' + version + tail;
+        window.location.href = target;
+      });
+    })();
+    </script>
+  </>
+)}

@@ -245,14 +245,11 @@ For this table, let's use `row.names = FALSE`:
 
 ```r
 tables_path <- here::here("OUTPUTS", "tables")
-config_yaml <- here::here("report", "config.yaml")
-
 outfile_name <- "theoph-pk-parameters.csv"
 
 write_csv_with_metadata(
   object = pk_params, 
   file = file.path(tables_path, outfile_name),
-  config_yaml = config_yaml,
   meta_abbrevs = c(meta_abbrevs$AUC),
   row.names = FALSE
 )
@@ -269,13 +266,12 @@ data_outfile_name <- "theoph-pk-data.RDS"
 
 table <- format_flextable(
   data_in = data,
-  table1_format = FALSE
+  table1format = FALSE
 )
 
 save_rds_with_metadata(
   object = table, 
-  file = file.path(tables_path, data_outfile_name),
-  config_yaml = config_yaml,
+  file = file.path(tables_path, data_outfile_name)
 )
 ```
 

@@ -3,16 +3,7 @@ title: reportifyr New User Guide
 description: A new user guide for reportifyr.
 ---
 
-Welcome to the `reportifyr` New User Guide! As `reportifyr` is in active, early-stage 
-development, be sure to visit our GitHub page frequently to stay up-to-date with 
-the latest features and releases.
-
-## What is `reportifyr`?
-
-At its core, `reportifyr` is an `R` package built with analysts and authors 
-in mind. It simplifies the creation of traceable, consistent Microsoft 
-Word documents (reports) by standardizing analysis outputs (artifacts) and 
-improving reproducibility through metadata management.
+Welcome to the `reportifyr` New User Guide! 
 
 ## Getting Started with `reportifyr`
 
@@ -33,11 +24,7 @@ library(reportifyr)
 Next, initialize a report project at the project root directory by running:
 
 ```r
-initialize_report_project(
-  project_dir = here::here(),
-  report_dir_name = NULL,
-  outputs_dir_name = NULL
-)
+initialize_report_project(project_dir = here::here())
 ```
 
 ### Step 3
@@ -112,15 +99,12 @@ lr <- pk_params %>%
 Now run the following to save the table and plot to `.csv` and `.png`, respectively:
 
 ```r
-config_yaml <- here::here("report", "config.yaml")
-
 tables_path <- here::here("OUTPUTS", "tables")
 outfile_name <- "theoph-pk-parameters.csv"
 
 write_csv_with_metadata(
   object = pk_params,
   file = file.path(tables_path, outfile_name),
-  config_yaml = config_yaml,
   meta_abbrevs = c(meta_abbrevs$AUC),
   row.names = FALSE
 )
@@ -160,15 +144,13 @@ docx_out <- here::here("report", "draft", "template-draft.docx")
 tables_path <- here::here("OUTPUTS", "tables")
 figures_path <- here::here("OUTPUTS", "figures")
 standard_footnotes_yaml <- here::here("report", "standard_footnotes.yaml")
-config_yaml <- here::here("report", "config.yaml")
 
 build_report(
   docx_in = docx_in,
   docx_out = docx_out,
   figures_path = figures_path,
   tables_path = tables_path,
-  standard_footnotes_yaml = standard_footnotes_yaml,
-  config_yaml = config_yaml
+  standard_footnotes_yaml = standard_footnotes_yaml
 )
 ```
 
@@ -179,12 +161,11 @@ Lastly, run the following to finalize the document:
 ```r
 finalize_document(
   docx_in = here::here("report", "draft", "template-draft.docx"),
-  docx_out = here::here("report", "final", "template-final.docx"),
-  config_yaml = config_yaml
+  docx_out = here::here("report", "final", "template-final.docx")
 )
 ```
 
 An important note, this step-by-step guide is an abbreviated form of the guides on
-<a href={`${import.meta.env.BASE_URL}/guides/initializing_reportifyr/`}>Initializing reportifyr</a>,
+<a href={`${import.meta.env.BASE_URL}/guides/initializing_reportifyr/`}>Initializing Reportifyr</a>,
 <a href={`${import.meta.env.BASE_URL}/guides/performing_analyses/`}>Performing Analyses</a>,
 and <a href={`${import.meta.env.BASE_URL}/guides/drafting_reports/`}>Drafting Reports</a>.

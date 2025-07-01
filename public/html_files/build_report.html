@@ -32,7 +32,6 @@ function processMathHTML() {
   figures_path,
   tables_path,
   standard_footnotes_yaml = NULL,
-  config_yaml = NULL,
   add_footnotes = TRUE,
   include_object_path = FALSE,
   footnotes_fail_on_missing_metadata = TRUE
@@ -62,10 +61,6 @@ function processMathHTML() {
 <tr><td><code id="standard_footnotes_yaml">standard_footnotes_yaml</code></td>
 <td>
 <p>The file path to the <code>standard_footnotes.yaml</code>. Default is <code>NULL</code>. If <code>NULL</code>, a default <code>standard_footnotes.yaml</code> bundled with the <code>reportifyr</code> package is used.</p>
-</td></tr>
-<tr><td><code id="config_yaml">config_yaml</code></td>
-<td>
-<p>The file path to the <code>config.yaml</code>. Default is <code>NULL</code>, a default <code>config.yaml</code> bundled with the <code>reportifyr</code> package is used.</p>
 </td></tr>
 <tr><td><code id="add_footnotes">add_footnotes</code></td>
 <td>

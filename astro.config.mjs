@@ -62,7 +62,7 @@ export default defineConfig({
         {
           label: 'Guides',
           items: [
-            { label: "reportifyr's User Guides", slug: 'guides/user_guide' },
+            { label: "Intro to reportifyr", slug: 'guides/intro' },
             { label: "reportifyr's New User Guide", slug: 'guides/new_user_guide' },
             { label: "Initializing reportifyr", slug: 'guides/initializing_reportifyr' },
             { label: "Performing Analyses", slug: 'guides/performing_analyses' },
@@ -70,8 +70,6 @@ export default defineConfig({
             { label: "A Streamlined Workflow", slug: 'guides/streamlined_workflow' },
             { label: "Updating Reports", slug: 'guides/updating_reports' },
             { label: "Elective Footnotes", slug: 'guides/elective_footnotes' },
-            { label: "Multi-figure Insertion", slug: 'guides/multi_figure_insertion' },
-            { label: "Configuring reportifyr", slug: 'guides/configuring_reportifyr' },
           ],
         },
         {
@@ -86,7 +84,6 @@ export default defineConfig({
                 'reference/setup/setup',
                 'reference/setup/initialize_report_project',
                 'reference/setup/initialize_python',
-                'reference/setup/sync_report_project',
               ],
             },
             {
@@ -122,8 +119,6 @@ export default defineConfig({
                 'reference/document_interacting/add_plots',
                 'reference/document_interacting/add_tables',
                 'reference/document_interacting/remove_tables_figures_footnotes',
-                'reference/document_interacting/add_plots_alt_text',
-                'reference/document_interacting/add_tables_alt_text',
               ],
             },
             {
@@ -143,10 +138,6 @@ export default defineConfig({
                 'reference/utilities/make_doc_dirs',
                 'reference/utilities/validate_object',
                 'reference/utilities/toggle_logger',
-                'reference/utilities/get_venv_uv_paths',
-                'reference/utilities/validate_alt_text_magic_strings',
-                'reference/utilities/validate_config',
-                'reference/utilities/validate_docx',
               ],
             },
           ],

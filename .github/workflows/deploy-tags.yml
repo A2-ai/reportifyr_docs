@@ -22,9 +22,9 @@ jobs:
       - name: Pull shared versions.ts from main
         run: |
           git fetch origin main --depth=1
-          git show origin/main:data/versions.ts > data/versions.ts
+          git show origin/main:src/data/versions.ts > src/data/versions.ts
           echo "Using versions.ts from main:"
-          cat data/versions.ts
+          cat src/data/versions.ts
 
       - name: Derive version slug
         id: vars

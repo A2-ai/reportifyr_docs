@@ -24,7 +24,7 @@ p <- ggplot(data, aes(x = Time, y = conc, group = Subject)) +
 p
 ```
 
-<img src={`${import.meta.env.BASE_URL}/images/theoph-pk-plot.png`} />
+<img src={`${import.meta.env.BASE_URL}images/theoph-pk-plot.png`} />
 
 ### Saving the Figure and Creating Metadata
 
@@ -114,7 +114,7 @@ metadata <- preview_metadata_files(file_dir = figures_path)
 knitr::kable(metadata)
 ```
 
-<img src={`${import.meta.env.BASE_URL}/images/preview-metadata-files.png`} />
+<img src={`${import.meta.env.BASE_URL}images/preview-metadata-files.png`} />
 
 From the data frame, we can see that there are additional parameters that can be
 saved as part of an artifact's metadata using `reportifyr`'s wrapper functions 
@@ -153,7 +153,7 @@ metadata_file <- preview_metadata(file_name = file.path(figures_path, plot_file_
 knitr::kable(metadata_file)
 ```
 
-<img src={`${import.meta.env.BASE_URL}/images/preview-metadata.png`} />
+<img src={`${import.meta.env.BASE_URL}images/preview-metadata.png`} />
 
 ## Performing an Analyses
 
@@ -203,7 +203,7 @@ pk_params <- data %>%
 knitr::kable(pk_params)
 ```
 
-<img src={`${import.meta.env.BASE_URL}/images/pk-params.png`} />
+<img src={`${import.meta.env.BASE_URL}images/pk-params.png`} />
 
 ```r
 lr <- pk_params %>% 
@@ -216,7 +216,7 @@ lr <- pk_params %>%
 lr
 ```
 
-<img src={`${import.meta.env.BASE_URL}/images/theoph-pk-exposure.png`} />
+<img src={`${import.meta.env.BASE_URL}images/theoph-pk-exposure.png`} />
 
 Let's save this plot with the `linear-regression-plot` `meta_type` and the relevant
 `AUC` `meta_abbrevs`. 
@@ -277,4 +277,4 @@ save_rds_with_metadata(
 
 At the end, we’ve generated two figures and two tables and saved them
 alongside their metadata using `reportifyr`, allowing us to easily
-incorporate them into our upcoming <a href={`${import.meta.env.BASE_URL}/guides/drafting_reports/`}>Drafting Reports</a>!
+incorporate them into our upcoming <a href={`${import.meta.env.BASE_URL}guides/drafting_reports/`}>Drafting Reports</a>!

@@ -29,8 +29,8 @@ jobs:
       - run: npm ci
       - name: Astro build for ${{ steps.vars.outputs.TAG }}
         env:
-          ASTRO_BASE: "/reportifyr_docs/versions/${{ steps.vars.outputs.TAG }}"
-          ASTRO_SITE: "https://a2-ai.github.io/reportifyr_docs/versions/${{ steps.vars.outputs.TAG }}"
+          ASTRO_BASE: "/reportifyr_docs/versions/${{ steps.vars.outputs.TAG }}/"
+          ASTRO_SITE: "https://a2-ai.github.io/reportifyr_docs/versions/${{ steps.vars.outputs.TAG }}/"
 
         run: npm run build     # outputs into ./dist
 

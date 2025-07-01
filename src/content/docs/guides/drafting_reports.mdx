@@ -45,8 +45,6 @@ which contains no figures or tables inserted by `reportifyr`.
 ### Making Document Directories
 
 ```r
-library(reportifyr)
-
 docx_shell <- here::here("report", "shell", "template.docx")
 doc_dirs <- make_doc_dirs(docx_in = docx_shell)
 ```
@@ -82,13 +80,11 @@ We can begin by inserting the tables:
 
 ```r
 tables_path <- here::here("OUTPUTS", "tables")
-config_yaml <- here::here("report", "config.yaml")
 
 add_tables(
   docx_in = doc_dirs$doc_in,
   docx_out = doc_dirs$doc_tables,
-  tables_path = tables_path,
-  config_yaml = config_yaml
+  tables_path = tables_path
 )
 ```
 
@@ -106,8 +102,7 @@ figures_path <- here::here("OUTPUTS", "figures")
 add_plots(
   docx_in = doc_dirs$doc_tables,
   docx_out = doc_dirs$doc_tabs_figs,
-  figures_path = figures_path,
-  config_yaml = config_yaml
+  figures_path = figures_path
 )
 ```
 
@@ -127,8 +122,7 @@ add_footnotes(
   docx_out = doc_dirs$doc_draft,
   figures_path = figures_path,
   tables_path = tables_path,
-  standard_footnotes_yaml = standard_footnotes_yaml,
-  config_yaml = config_yaml
+  standard_footnotes_yaml = standard_footnotes_yaml
 )
 ```
 
@@ -147,8 +141,7 @@ using this function:
 ```r
 finalize_document(
   docx_in = doc_dirs$doc_draft,
-  docx_out = doc_dirs$doc_final,
-  config_yaml = config_yaml
+  docx_out = doc_dirs$doc_final
 )
 ```
 

@@ -22,6 +22,7 @@ doc_dirs <- make_doc_dirs(docx_in = docx_shell)
 figures_path  <- here::here("OUTPUTS", "figures")
 tables_path <- here::here("OUTPUTS", "tables")
 standard_footnotes_yaml <- here::here("report", "standard_footnotes.yaml")
+config_yaml <- here::here("report", "config.yaml")
 
 build_report(
   docx_in = doc_dirs$doc_in,
@@ -29,6 +30,7 @@ build_report(
   figures_path = figures_path,
   tables_path = tables_path,
   standard_footnotes_yaml = standard_footnotes_yaml,
+  config_yaml = config_yaml,
   add_footnotes = FALSE,
   include_object_path = FALSE,
   footnotes_fail_on_missing_metadata = TRUE
@@ -125,7 +127,7 @@ knitr::kable(pk_demo)
 
 <img src={`${import.meta.env.BASE_URL}/images/pk-demo.png`} />
 
-We will now use the `template-ef.docx` [file](https://github.com/A2-ai/reportifyr/blob/v0.2.6/inst/extdata/template-ef.docx) 
+We will now use the `template-ef.docx` [file](https://github.com/A2-ai/reportifyr/blob/v0.3.1/inst/extdata/template-ef.docx) 
 supplied by the `reportifyr` package, which contains captions and magic strings 
 in the appendices for our new artifacts, to build a report from:
 
@@ -143,6 +145,7 @@ build_report(
   figures_path = figures_path,
   tables_path = tables_path,
   standard_footnotes_yaml = standard_footnotes_yaml,
+  config_yaml = config_yaml,
   add_footnotes = TRUE,
   include_object_path = FALSE,
   footnotes_fail_on_missing_metadata = FALSE

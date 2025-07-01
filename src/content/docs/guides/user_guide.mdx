@@ -1,19 +1,18 @@
 ---
-title: Intro to reportifyr
-description: An introduction to reportifyr.
+title: reportifyr User Guide
+description: A user guide for reportifyr.
 pagefind: true
 ---
 
 import { Steps } from '@astrojs/starlight/components';
 
-As `reportifyr` is in active, early-stage development, be sure to visit our GitHub 
-[page](https://github.com/A2-ai/reportifyr) frequently to stay up-to-date with the 
-latest features and releases.
+Welcome to the `reportifyr` User Guide! As `reportifyr` is in active, early-stage development, be 
+sure to visit our GitHub page frequently to stay up-to-date with the latest features and releases.
 
 ## What is `reportifyr`? 
 
-`reportifyr` is a new package in the `R` ecosystem designed to simplify the creation 
-of traceable and consistent Microsoft Word documents (reports).
+`reportifyr` is a new package in the `R` ecosystem designed to simplify the creation of traceable 
+and consistent Microsoft Word documents (reports).
 
 ## How does `reportifyr` work?
 
@@ -32,6 +31,8 @@ guides to help users:
 2. <a href={`${import.meta.env.BASE_URL}/guides/streamlined_workflow/`}>Streamlined Workflow</a> - Build a report with two quick `reportifyr` functions.
 3. <a href={`${import.meta.env.BASE_URL}/guides/updating_reports/`}>Updating Reports</a> - Update a report's artifacts with `reportifyr`. 
 4. <a href={`${import.meta.env.BASE_URL}/guides/elective_footnotes/`}>Elective Footnotes</a> - Learn how to include or exclude footnotes with `reportifyr`.
+5. <a href={`${import.meta.env.BASE_URL}/guides/multi_figure_insertion/`}>Multi-figure Insertion</a> - See how multi-figure insertion works with `reportifyr`.
+6. <a href={`${import.meta.env.BASE_URL}/guides/configuring_reportifyr/`}>Configuring reportifyr</a> - Configure and setup `reportifyr`.
 </Steps>
 
 ## Why use `reportifyr`?
@@ -51,6 +52,7 @@ detailed insights and advanced tips:
 <Steps>
 1. <a href={`${import.meta.env.BASE_URL}/reference/setup/initialize_python/`}>Initialize Python</a> - Reference for using the `initialize_python()` function to create a Python virtual environment.
 2. <a href={`${import.meta.env.BASE_URL}/reference/setup/initialize_report_project/`}>Initialize Report Project</a> - Reference for using the `initialize_report_project()` function to create a project directory structure for reports.
+3. <a href={`${import.meta.env.BASE_URL}/reference/setup/sync_report_project/`}>Sync Report Project</a> - Reference for using the `sync_report_project()` function to synchronize a project directory.
 </Steps>
 
 ### Exporting
@@ -80,6 +82,8 @@ detailed insights and advanced tips:
 2. <a href={`${import.meta.env.BASE_URL}/reference/document_interacting/add_plots/`}>Add Plots</a> - Reference for using the `add_plots()` function to insert figures into a Microsoft Word document.
 3. <a href={`${import.meta.env.BASE_URL}/reference/document_interacting/add_tables/`}>Add Tables</a> - Reference for using the `add_tables()` function to insert tables into a Microsoft Word document.
 4. <a href={`${import.meta.env.BASE_URL}/reference/document_interacting/remove_tables_figures_footnotes/`}>Remove Tables, Figures & Footnotes</a> - Reference for using the `remove_tables_figures_footnotes()` function to remove tables, figures, and footnotes from a Microsoft Word document.
+5. <a href={`${import.meta.env.BASE_URL}/reference/document_interacting/add_plots_alt_text/`}>Add Plots Alt Text</a> - Reference for using the `add_plots_alt_text()` function to insert plots' magic strings as their alt text.
+6. <a href={`${import.meta.env.BASE_URL}/reference/document_interacting/add_tables_alt_text/`}>Add Tables Alt Text</a> - Reference for using the `add_tables_alt_text()` function to insert tables' magic strings as their alt text.
 </Steps>
 
 ### Report Building
@@ -95,4 +99,8 @@ detailed insights and advanced tips:
 1. <a href={`${import.meta.env.BASE_URL}/reference/utilities/make_doc_dirs/`}>Make Document Directories</a> - Reference for using the `make_doc_dirs()` function to define paths for intermediate and final Microsoft Word documents.
 2. <a href={`${import.meta.env.BASE_URL}/reference/utilities/validate_object/`}>Validate Object</a> - Reference for using the `validate_object()` function to define paths for intermediate and final Microsoft Word documents.
 3. <a href={`${import.meta.env.BASE_URL}/reference/utilities/toggle_logger/`}>Toggle Logger</a> - Reference for using the `toggle_logger()` function to set the logging level.
+4. <a href={`${import.meta.env.BASE_URL}/reference/utilities/get_venv_uv_paths/`}>Get venv uv Paths</a> - Reference for using the `get_venv_uv_paths()` function to locate the `.venv` subdirectory and `uv` executable. 
+5. <a href={`${import.meta.env.BASE_URL}/reference/utilities/validate_alt_text_magic_strings/`}>Validate Alt Text Magic Strings</a> - Reference for using the `validate_alt_text_magic_strings()` to validate the alt text of a Microsoft Word document's artifacts.
+6. <a href={`${import.meta.env.BASE_URL}/reference/utilities/validate_config/`}>Validate Config</a> - Reference for using the `validate_config()` function to validate a user's `config.yaml` file.
+7. <a href={`${import.meta.env.BASE_URL}/reference/utilities/validate_docx/`}>Validate DOCX</a> - Reference for using the `validate_docx()` function to validate a Microsoft Word document.
 </Steps>

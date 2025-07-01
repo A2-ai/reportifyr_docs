@@ -32,6 +32,7 @@ meta_abbrevs <- get_meta_abbrevs(here::here("report", "standard_footnotes.yaml")
 
 figures_path <- here::here("OUTPUTS", "figures")
 tables_path <- here::here("OUTPUTS", "tables")
+config_yaml <- here::here("report", "config.yaml")
 
 calc_auc_linear_log <- function(time, conc) {
   auc <- 0
@@ -90,6 +91,7 @@ outfile_name <- "theoph-pk-parameters.csv"
 write_csv_with_metadata(
   object = pk_params, 
   file = file.path(tables_path, outfile_name),
+  config_yaml = config_yaml,
   meta_abbrevs = c(meta_abbrevs$AUC, meta_abbrevs$WTBL),
   row.names = FALSE
 )
@@ -110,6 +112,7 @@ build_report(
   figures_path = figures_path,
   tables_path = tables_path,
   standard_footnotes_yaml = standard_footnotes_yaml,
+  config_yaml = config_yaml,
   add_footnotes = TRUE,
   include_object_path = FALSE,
   footnotes_fail_on_missing_metadata = TRUE

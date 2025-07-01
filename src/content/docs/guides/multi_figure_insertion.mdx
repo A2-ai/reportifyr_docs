@@ -1,0 +1,70 @@
+---
+title: Multi-figure Insertion
+description: A guide to using multi-figure insertion with reportifyr
+---
+
+There are certain situations where you may need to insert multiple figures (multi-figures) under a 
+single caption within a given Microsoft Word document (report). `reportifyr` supports this behavior 
+through specific magic string configurations within the input report. The two available options are:
+
+- **Sequential (Bracketed) Multi-figures**: 
+
+<img src={`${import.meta.env.BASE_URL}/images/multi-figure_1.png`} />
+
+where the resulting multi-figure shares a single shared footnote for both figures and
+
+- **Stacked (Repeated) Multi-figures**:
+
+<img src={`${import.meta.env.BASE_URL}/images/multi-figure_2.png`} />
+
+where the resulting multi-figure has separate foonotes for each figure. 
+
+## Sequential & Stacked Multi-figures
+
+Let's build a report that contains both sequential and stacked magic strings using the 
+[template-mf report](https://github.com/A2-ai/reportifyr/blob/v0.3.1/inst/extdata/template-mf.docx)
+packaged with `reportifyr`.
+
+To do so, we just need to establish our file paths and run `build_report()` - no other arguments
+or configuration options required:
+
+```r
+library(reportifyr)
+
+docx_shell <- here::here("report", "shell", "template-mf.docx")
+doc_dirs <- make_doc_dirs(docx_in = docx_shell)
+
+figures_path  <- here::here("OUTPUTS", "figures")
+tables_path <- here::here("OUTPUTS", "tables")
+standard_footnotes_yaml <- here::here("report", "standard_footnotes.yaml")
+config_yaml <- here::here("report", "config.yaml")
+
+build_report(
+  docx_in = doc_dirs$doc_in,
+  docx_out = doc_dirs$doc_draft,
+  figures_path = figures_path,
+  tables_path = tables_path,
+  standard_footnotes_yaml = standard_footnotes_yaml,
+  config_yaml = config_yaml,
+  add_footnotes = TRUE,
+  include_object_path = FALSE,
+  footnotes_fail_on_missing_metadata = TRUE
+)
+```
+
+This produces a report with a sequential multi-figure and a shared footnote: 
+
+<img src={`${import.meta.env.BASE_URL}/images/multi-figure_3.png`} />
+
+<img src={`${import.meta.env.BASE_URL}/images/config_4.png`} />
+
+An important note, there are a couple elective `config.yaml` options that can be applied to 
+sequential multi-figures, `combine_duplicate_footnotes` and `label_multi_figures`, that will be 
+discussed in-depth in <a href={`${import.meta.env.BASE_URL}/guides/configuring_reportifyr/`}>Configuring reportifyr</a>.
+
+In case you didn't want a shared footnote, the previously generated report also produces a stacked 
+multi-figure with separate footnotes for each figure:
+
+<img src={`${import.meta.env.BASE_URL}/images/multi-figure_5.png`} />
+
+<img src={`${import.meta.env.BASE_URL}/images/multi-figure_6.png`} />

@@ -1,68 +1,52 @@
 ---
+// src/components/VersionSelect.astro
+
 import { VERSIONS } from '../data/versions';
 
-/* -------------------------------------------------
- * Constants we can compute once at build-time
- * ------------------------------------------------- */
+// strip any trailing slash off BASE_URL so we get e.g.
+//   ''                in `npm run dev`
+//   '/reportifyr_docs' on GH-Pages
+const RAW_BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// newest entry first
+// grab newest tag/label
 const [{ tag: LATEST_TAG, label: LATEST_LABEL }] = VERSIONS;
-
-/** Repo root ('' in dev, '/reportifyr_docs' on GitHub Pages) */
-const ROOT = import.meta.env.BASE_URL                 // '/reportifyr_docs/' or '/'
-  .replace(/\/versions\/[^/]+\/?$/, '')               // strip '/versions/x.y.z'
-  .replace(/\/$/, '');                                // drop trailing '/'
-
-/** Helper to build a fully qualified path for the same “tail” in another tag */
-function buildTarget(tag: string, tail: string): string {
-  return tag === LATEST_TAG
-    ? `${ROOT}${tail || '/'}`
-    : `${ROOT}/versions/${tag}${tail}`;
-}
 ---
 
-<select
-  id="version-select"
-  aria-label="Documentation version"
-  onchange="switchVersion(this.value)"
-  style="padding:.25rem;border-radius:.25rem"
->
-  <option value={LATEST_TAG}>Latest&nbsp;({LATEST_LABEL})</option>
+{RAW_BASE !== '' && (
+  <>
+    <select id="version-select" style="padding:.25rem; border-radius:.25rem">
+      <option value={LATEST_TAG}>Latest ({LATEST_LABEL})</option>
+      {VERSIONS.slice(1).map(({ tag, label }) => (
+        <option value={tag}>{label}</option>
+      ))}
+    </select>
 
-  {VERSIONS.slice(1).map(({ tag, label }) => (
-    <option value={tag}>{label}</option>
-  ))}
-</select>
+    <script is:inline>
+    {/** inline script gets ballooned into the page *after* the <select> **/}
+    (() => {
+      const RAW_BASE = "${RAW_BASE}";
+      const LATEST   = "${LATEST_TAG}";
+      const sel      = document.getElementById('version-select');
+      if (!sel) return;
 
-<script is:inline>
-(function () {
-  const LATEST = '<?=LATEST_TAG?>';
-  const ROOT   = '<?=ROOT?>';        // injected during build
+      // pre-select the current version from the URL
+      const path   = window.location.pathname;
+      const prefix = RAW_BASE + '/versions/';
+      sel.value = path.startsWith(prefix)
+        ? path.slice(prefix.length).split('/')[0] || LATEST
+        : LATEST;
 
-  const sel  = document.getElementById('version-select');
-  if (!sel) return;
-
-  /* -------- determine where we are right now -------- */
-  const path  = location.pathname;                           // e.g. /reportifyr_docs/… or /reportifyr_docs/versions/x.y.z/…
-  const m     = path.match(/^\/[^/]+\/versions\/([^/]+)/);    // capture tag if present
-  const tail  = m ? path.replace(/^\/[^/]+\/versions\/[^/]+/, '')
-                  : path.replace(/^\/[^/]+/, '');            // strip '/reportifyr_docs' on latest
-  sel.value   = m ? m[1] : LATEST;
-
-  /* -------- change-handler with fallback -------- */
-  window.switchVersion = async function (tag) {
-    const target = tag === LATEST
-      ? `${ROOT}${tail || '/'}`
-      : `${ROOT}/versions/${tag}${tail}`;
-
-    try {
-      const ok = await fetch(target, { method: 'HEAD' }).then(r => r.ok);
-      location.href = ok
-        ? target
-        : (tag === LATEST ? `${ROOT}/` : `${ROOT}/versions/${tag}/`);
-    } catch {
-      location.href = tag === LATEST ? `${ROOT}/` : `${ROOT}/versions/${tag}/`;
-    }
-  };
-})();
-</script>
+      sel.addEventListener('change', (e) => {
+        const version = e.target.value;
+        // what comes *after* the base (e.g. '/reportifyr_docs')
+        const tail = window.location.pathname.slice(RAW_BASE.length) || '/';
+        const target =
+          version === LATEST
+            ? RAW_BASE + tail
+            : RAW_BASE + '/versions/' + version + tail;
+        window.location.href = target;
+      });
+    })();
+    </script>
+  </>
+)}

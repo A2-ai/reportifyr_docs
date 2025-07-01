@@ -24,8 +24,8 @@ const [{ tag: LATEST_TAG, label: LATEST_LABEL }] = VERSIONS;
     <script is:inline>
     {/** inline script gets ballooned into the page *after* the <select> **/}
     (() => {
-      const RAW_BASE = {JSON.stringify(RAW_BASE)};
-      const LATEST   = {JSON.stringify(LATEST_TAG)};
+      const RAW_BASE = "${RAW_BASE}";
+      const LATEST   = "${LATEST_TAG}";
       const sel      = document.getElementById('version-select');
       if (!sel) return;
 

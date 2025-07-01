@@ -1,52 +1,86 @@
 ---
-// src/components/VersionSelect.astro
-
 import { VERSIONS } from '../data/versions';
-
-// strip any trailing slash off BASE_URL so we get e.g.
-//   ''                in `npm run dev`
-//   '/reportifyr_docs' on GH-Pages
-const RAW_BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
-
-// grab newest tag/label
+// VERSIONS[0] is your latest
 const [{ tag: LATEST_TAG, label: LATEST_LABEL }] = VERSIONS;
 ---
 
-{RAW_BASE !== '' && (
-  <>
-    <select id="version-select" style="padding:.25rem; border-radius:.25rem">
-      <option value={LATEST_TAG}>Latest ({LATEST_LABEL})</option>
-      {VERSIONS.slice(1).map(({ tag, label }) => (
-        <option value={tag}>{label}</option>
-      ))}
-    </select>
+<select
+  id="version-select"
+  aria-label="Documentation version"
+  style="padding:.25rem; border-radius:.25rem"
+>
+  <option value={LATEST_TAG}>Latest&nbsp;({LATEST_LABEL})</option>
+  {VERSIONS.slice(1).map(({ tag, label }) => (
+    <option value={tag}>{label}</option>
+  ))}
+</select>
 
-    <script is:inline>
-    {/** inline script gets ballooned into the page *after* the <select> **/}
-    (() => {
-      const RAW_BASE = "${RAW_BASE}";
-      const LATEST   = "${LATEST_TAG}";
-      const sel      = document.getElementById('version-select');
-      if (!sel) return;
+<script is:inline>
+(function () {
+  const sel = document.getElementById('version-select');
+  if (!sel) return;
 
-      // pre-select the current version from the URL
-      const path   = window.location.pathname;
-      const prefix = RAW_BASE + '/versions/';
-      sel.value = path.startsWith(prefix)
-        ? path.slice(prefix.length).split('/')[0] || LATEST
-        : LATEST;
+  // pick up latest from the first <option>
+  const LATEST = sel.options[0].value;
 
-      sel.addEventListener('change', (e) => {
-        const version = e.target.value;
-        // what comes *after* the base (e.g. '/reportifyr_docs')
-        const tail = window.location.pathname.slice(RAW_BASE.length) || '/';
-        const target =
-          version === LATEST
-            ? RAW_BASE + tail
-            : RAW_BASE + '/versions/' + version + tail;
-        window.location.href = target;
+  // parse current path into projectRoot and version+tail
+  const [projectRoot, rest] = location.pathname.split('/versions/');
+  let currentTag, tail;
+
+  if (rest) {
+    // on a versioned page: rest = "0.2.6/..."
+    const parts = rest.split('/');
+    currentTag = parts.shift();            // e.g. "0.2.6"
+    tail = parts.length ? '/' + parts.join('/') : '/';
+  } else {
+    // on latest
+    currentTag = LATEST;
+    tail = location.pathname.replace(/^\/[^/]+/, '') || '/';
+  }
+
+  console.log('[VersionSelect] projectRoot:', projectRoot);
+  console.log('[VersionSelect] currentTag :', currentTag);
+  console.log('[VersionSelect] tail       :', tail);
+
+  // pre-select current version
+  sel.value = currentTag;
+
+  // define the global switchVersion handler
+  window.switchVersion = function (tag) {
+    // compute tail fresh from current URL
+    const path = location.pathname;
+    const afterRoot = path.startsWith(projectRoot)
+      ? path.slice(projectRoot.length)     // "/versions/x.y.z/..." OR "/..."
+      : path;
+
+    let tail;
+    if (afterRoot.startsWith('/versions/')) {
+      // strip "/versions/currentTag" to get tail
+      tail = afterRoot.replace(/^\/versions\/[^/]+/, '') || '/';
+    } else {
+      tail = afterRoot || '/';
+    }
+
+        const target = projectRoot + '/versions/' + tag + tail;
+
+    console.log('  computed target:', target);
+
+    fetch(target, { method: 'GET', cache: 'no-cache', redirect: 'follow' })
+      .then(r => {
+        console.log('  fetch status:', r.status, 'ok:', r.ok);
+        if (r.ok) {
+          location.href = target;
+        } else {
+          location.href = projectRoot + '/versions/' + tag + '/';
+        }
+      })
+      .catch(err => {
+        console.error('  fetch error:', err);
+        location.href = projectRoot + '/versions/' + tag + '/';
       });
-    })();
-    </script>
-  </>
-)}
+  };
+
+  // wire up change event to global handler
+  sel.addEventListener('change', () => window.switchVersion(sel.value));
+})();
+</script>

@@ -5,8 +5,8 @@ description: A guide on streamlining report generation with reportifyr
 
 ## Initial Report Requirements
 
-As with <a href={`${import.meta.env.BASE_URL}guides/drafting_reports/`}>Drafting Reports</a>, 
-there are an initial set of requirements that the Microsoft Word document (report) must satisfy.
+As with <a href={`${import.meta.env.BASE_URL}guides/drafting_reports/`}>Drafting Reports</a>, there 
+is an initial set of requirements that the Microsoft Word document (report) must satisfy.
 
 The report must contain:
 
@@ -34,7 +34,6 @@ doc_dirs <- make_doc_dirs(docx_in = docx_shell)
 figures_path  <- here::here("OUTPUTS", "figures")
 tables_path <- here::here("OUTPUTS", "tables")
 standard_footnotes_yaml <- here::here("report", "standard_footnotes.yaml")
-config_yaml <- here::here("report", "config.yaml")
 
 build_report(
   docx_in = doc_dirs$doc_in,
@@ -42,7 +41,6 @@ build_report(
   figures_path = figures_path,
   tables_path = tables_path,
   standard_footnotes_yaml = standard_footnotes_yaml,
-  config_yaml = config_yaml,
   add_footnotes = TRUE,
   include_object_path = FALSE,
   footnotes_fail_on_missing_metadata = TRUE
@@ -68,8 +66,7 @@ After that, we can remove the magic strings and bookmarks with the same
 ```r
 finalize_document(
   docx_in = doc_dirs$doc_draft,
-  docx_out = doc_dirs$doc_final,
-  config_yaml = config_yaml
+  docx_out = doc_dirs$doc_final
 )
 ```
 

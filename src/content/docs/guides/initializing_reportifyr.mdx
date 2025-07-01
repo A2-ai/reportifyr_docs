@@ -8,44 +8,40 @@ pagefind: true
 
 On first interaction, `reportifyr` loads with a message specifying options for 
 `Python` setup. These options may be altered to designate where the `Python` virtual
-environment (`.venv`) is created and which versions of `Python`, `python-docx`, `PyYAML`, and 
-`pillow` are used. Or in most cases, these options may be left unset and 
+environment (`.venv`) is created and which versions of `Python`, `python-docx`, 
+and `PyYAML` are used. Or in most cases, these options may be left unset and 
 default values will be used.
 
 ```r
 library(reportifyr)
 
-── Set reportifyr options ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-✔ Using installed uv version 0.7.8
-
-── venv options ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-▇ Using project root for venv (unless already present), set options('venv_dir') to change
-── Version options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-▇ Using system python version, set options('python.version') to change
-▇ Using python-docx version 1.1.2, set options('python-docx.version') to change
-▇ Using pyyaml version 6.0.2, set options('pyyaml.version') to change
-▇ Using pillow v11.1.0, set options('pillow.version') to change
+── Needed reportifyr options ───────────────────────────────────────────────────
+✖ options('venv_dir') is not set. venv will be created in Project root
+ℹ Please set all options for package to work.
+── Optional version options ────────────────────────────────────────────────────
+▇ options('uv.version') is not set. Default is 0.5.1
+▇ options('python.version') is not set. Default is system version
+▇ options('python-docx.version') is not set. Default is 1.1.2
+▇ options('pyyaml.version') is not set. Default is 6.0.2
 ```
 
 ## Initializing A New Report Project
 
 The first step in initializing `reportifyr` is to call the `initialize_report_project()` 
 function. This function performs several tasks - it creates all needed subdirectories 
-for saving output figures and tables (`outputs_dir_name`) and establishes the `report_dir_name` 
-subdirectory before copying `config.yaml` and `standard_footnotes.yaml` files over. 
-Additionally, it configures the required `Python` dependencies within a `.venv` 
-subdirectory to ensure the `Python` components of the `reportifyr` package function correctly.
+for saving output figures and tables (artifacts), establishes the `report` subdirectory, 
+and copies a `standard_footnotes.yaml` file into the `report` subdirectory that 
+can be used to save standardized footnote definitions. Additionally, it configures 
+the required `Python` dependencies within a `.venv` subdirectory to ensure the 
+`Python` components of the `reportifyr` package function correctly.
 
-A directory must be specified for the `initialize_report_project()` function's 
-`project_dir` argument - typically the project root. `report_dir_name` and `outputs_dir_name` 
-should be provided as relative file paths to the `project_dir` or left `NULL` for default values:
+A directory must be specified in the `initialize_report_project()` function 
+(typically the project root directory) where `reportifyr` will search for certain 
+subdirectories. If these subdirectories are not found, the `initialize_report_project()` 
+function will create them automatically:
 
 ```r
-initialize_report_project(
-  project_dir = here::here(),
-  report_dir_name = "report",
-  outputs_dir_name = "OUTPUTS"
-)
+initialize_report_project(project_dir = here::here())
 ```
 
 ## Initializing Multiple Reports
@@ -57,9 +53,5 @@ and then provide the same `path/to/dir` as the `project_dir` for `initialize_rep
 ```r
 options("venv_dir" = here::here("path/to/dir"))
 
-initialize_report_project(
-  project_dir = here::here("path/to/dir"),
-  report_dir_name = "report",
-  outputs_dir_name = "OUTPUTS"
-)
+initialize_report_project(project_dir = here::here("path/to/dir"))
 ```

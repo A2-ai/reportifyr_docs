@@ -7,7 +7,7 @@ pagefind: true
 import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-The `initialize_report_project()` function in the `reportifyr` package creates a directory structure for report generation and ensures all necessary subdirectories are present. If required, it also initializes a `Python` virtual environment using `reportifyr`'s `initialize_python()` function.
+The `initialize_report_project()` function in the `reportifyr` package creates a directory structure for report generation and ensures all necessary subdirectories are present. If required, it also initializes a Python virtual environment using `reportifyr`'s `initialize_python()` function.
 
 ---
 
@@ -22,28 +22,22 @@ The `initialize_report_project()` function in the `reportifyr` package creates a
 If the following directory structure does not exist within the provided `project_dir`, it will be created: 
 
 <Steps>
-1. `report_dir_name`
+1. `report`
    - `draft`: Contains drafts of reports.
    - `final`: Contains final versions of reports.
    - `scripts`: Contains report scripts.
    - `shell`: Contains report shells.
-2. `outputs_dir_name`
+2. `OUTPUTS`
    - `figures`: Stores generated figures.
    - `tables`: Stores generated tables.
    - `listings`: Stores generated listings.
 3. `.venv`
 </Steps>
 
-If a `standard_footnotes.yaml` is not found within the `report_dir_name` subdirectory, a prompt stating:
+If a `standard_footnotes.yaml` is not found within the `report` subdirectory, a prompt stating:
 
 ```r
-> Copied standard_footnotes.yaml into /cluster-data/user-homes/user/project/report_dir_name
-```
-
-If a `standard_footnotes.yaml` is not found within the `report_dir_name` subdirectory, a prompt stating:
-
-```r
-> Copied standard_footnotes.yaml into /cluster-data/user-homes/user/project/report_dir_name
+> Copied standard_footnotes.yaml into /cluster-data/user-homes/user/project/report
 ```
 
 If a `.venv` is not found in the `project_dir`, it initializes one using `initialize_python()` and returns a prompt.
@@ -53,7 +47,7 @@ If a `.venv` is not found in the `project_dir`, it initializes one using `initia
 ### Logging
 
 - **Debug**: Logs the start and end of the function, as well as the creation of certain subdirectories (e.g, `draft`, `figures`, `tables`, etc.).
-- **Info**: Logs when the `project_dir` is validated, when `report_dir_name` and `outputs_dir_name` subdirectories are created, and when the `standard_footnotes.yaml` file is copied over.
+- **Info**: Logs when the `project_dir` is validated, when `report` and `OUTPUTS` subdirectories are created, and when the standard_footnotes.yaml file is copied over.
 - **Error**: Logs and stops execution if the `project_dir` does not exist.
 
 ---

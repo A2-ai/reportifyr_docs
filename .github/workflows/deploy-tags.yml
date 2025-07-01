@@ -18,6 +18,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          
+      - name: Pull shared versions.ts from main
+        run: |
+          git fetch origin main --depth=1
+          git show origin/main:data/versions.ts > data/versions.ts
+          echo "Using versions.ts from main:"
+          cat data/versions.ts
 
       - name: Derive version slug
         id: vars

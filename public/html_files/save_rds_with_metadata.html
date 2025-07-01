@@ -29,6 +29,7 @@ function processMathHTML() {
 <pre><code class='language-R'>save_rds_with_metadata(
   object,
   file = "",
+  config_yaml = NULL,
   meta_type = "NA",
   meta_equations = NULL,
   meta_notes = NULL,
@@ -49,6 +50,10 @@ function processMathHTML() {
 <tr><td><code id="file">file</code></td>
 <td>
 <p>The connection or name of the file where the <code>R</code> object is saved.</p>
+</td></tr>
+<tr><td><code id="config_yaml">config_yaml</code></td>
+<td>
+<p>The file path to the <code>config.yaml</code>. Default is <code>NULL</code>. If <code>NULL</code>, a default value of <code>TRUE</code> for <code>save_rtf()</code> is used.</p>
 </td></tr>
 <tr><td><code id="meta_type">meta_type</code></td>
 <td>

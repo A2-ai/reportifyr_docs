@@ -1,0 +1,36 @@
+---
+title: Validate Docx
+description: validate_docx() reference. 
+pagefind: true
+---
+
+import EmbeddedHTML from '/src/components/EmbeddedHTML.astro';
+
+The `validate_docx()` function in the `reportifyr` package performs a series of checks to ensure that an input Microsoft Word document (`docx_in`) is ready for downstream processing.
+
+---
+
+## `validate_docx()`
+
+<EmbeddedHTML filename="/public/html_files/validate_docx.html"/>
+
+---
+
+### Returns
+
+Any validation failure triggers an immediate `stop()` with an explanatory error message. If the validation is successful, then the function returns silently. 
+
+---
+
+### Logging
+
+- **Debug**: Logs the start of the function.
+- **Info**: Logs the `docx_in`, and if the `config.yaml` is missing, `strict` will be set to `TRUE`.
+- **Warn**: Logs if disallowed extensions are in magic strings within the `docx_in` or if duplicate magic strings are present whenever `strict` is `FALSE`. 
+- **Error**: Logs errors if `docx_in` does not exist or does not have the `.docx` extension, if no magic strings are present in the `docx_in`, if `.venv` or `uv` is missing, and any disallowed file-type extensions or duplicate magic strings whenever `strict` is `TRUE`.
+
+---
+
+## Additional Resources
+
+- **reportifyr GitHub**: Refer to the `reportifyr` [repository](https://github.com/A2-ai/reportifyr) for more details.

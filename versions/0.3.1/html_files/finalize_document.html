@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><title>R: Finalizes the Microsoft Word file by removing magic strings...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>finalize_document</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Finalizes the Microsoft Word file by removing magic strings and bookmarks</h2>
+
+<h3>Description</h3>
+
+<p>Reads in a <code>.docx</code> file and returns a finalized version with magic strings and bookmarks removed.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>finalize_document(docx_in, docx_out = NULL, config_yaml = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="docx_in">docx_in</code></td>
+<td>
+<p>The file path to the input <code>.docx</code> file.</p>
+</td></tr>
+<tr><td><code id="docx_out">docx_out</code></td>
+<td>
+<p>The file path to the output <code>.docx</code> file to save to. Default is <code>NULL</code>. If <code>NULL</code>, <code>docx_out</code> is assigned <code>doc_dirs$doc_final</code> using <code>make_doc_dirs(docx_in = docx_in)</code>.</p>
+</td></tr>
+<tr><td><code id="config_yaml">config_yaml</code></td>
+<td>
+<p>The file path to the <code>config.yaml</code>. Default is <code>NULL</code>, a default <code>config.yaml</code> bundled with the <code>reportifyr</code> package is used.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+
+# ---------------------------------------------------------------------------
+# Load all dependencies
+# ---------------------------------------------------------------------------
+docx_in &lt;- here::here("report", "shell", "template.docx")
+doc_dirs &lt;- make_doc_dirs(docx_in = docx_in)
+figures_path &lt;- here::here("OUTPUTS", "figures")
+tables_path &lt;- here::here("OUTPUTS", "tables")
+standard_footnotes_yaml &lt;- here::here("report", "standard_footnotes.yaml")
+
+# ---------------------------------------------------------------------------
+# Step 1.
+# Run the `build_report()` wrapper function to replace figures, tables, and
+# footnotes in a `.docx` file.
+# ---------------------------------------------------------------------------
+build_report(
+  docx_in = doc_dirs$doc_in,
+  docx_out = doc_dirs$doc_draft,
+  figures_path = figures_path,
+  tables_path = tables_path,
+  standard_footnotes_yaml = standard_footnote_yaml
+)
+
+# ---------------------------------------------------------------------------
+# Step 2.
+# If you are ready to finalize the `.docx` file, run the `finalize_document()`
+# function. This will remove the ties between reportifyr and the document, so
+# please be mindful!
+# ---------------------------------------------------------------------------
+finalize_document(
+  docx_in = doc_dirs$doc_draft,
+  docx_out = doc_dirs$doc_final
+)
+
+## End(Not run)
+</code></pre>
+
+</main>
+
+</div>
+</body></html>

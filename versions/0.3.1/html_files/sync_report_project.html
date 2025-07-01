@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><title>R: Synchronizes report project with config and python...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>sync_report_project</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Synchronizes report project with config and python
+dependencies set through options. Uses .report_dir_name_init.json
+to track differences.</h2>
+
+<h3>Description</h3>
+
+<p>Synchronizes report project with config and python
+dependencies set through options. Uses .report_dir_name_init.json
+to track differences.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>sync_report_project(project_dir, report_dir_name = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="project_dir">project_dir</code></td>
+<td>
+<p>The file path to the main project directory
+where the directory structure will be created.
+The directory must already exist; otherwise, an error will be thrown.</p>
+</td></tr>
+<tr><td><code id="report_dir_name">report_dir_name</code></td>
+<td>
+<p>The directory name for where reports will be saved.
+Default is <code>NULL</code>. If <code>NULL</code>, <code>report</code> will be used.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+sync_report_project(here::here())
+
+## End(Not run)
+</code></pre>
+
+</main>
+
+</div>
+</body></html>
